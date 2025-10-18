@@ -8,7 +8,7 @@ interface AppContextType {
   addPunch: (punch: Omit<Punch, 'id'>) => void;
   updatePunch: (id: string, updates: Partial<Punch>) => void;
   deletePunch: (id: string) => void;
-  startPunch: (description: string, tags: string[]) => void;
+  startPunch: (description: string, tags: string[], notes?: string) => void;
   stopPunch: (description?: string, tags?: string[]) => void;
   addTag: (tag: Omit<Tag, 'id'>) => void;
   updateTag: (id: string, updates: Partial<Tag>) => void;
@@ -119,7 +119,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   }, [activePunch]);
 
-  const startPunch = useCallback((description: string, tags: string[]) => {
+  const startPunch = useCallback((description: string, tags: string[], notes?: string) => {
     if (activePunch) {
       window.alert('Please stop the current punch before starting a new one.');
       return;
@@ -131,6 +131,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       endTime: null,
       tags,
       description,
+      notes: notes || '',
     };
 
     setData(prev => ({

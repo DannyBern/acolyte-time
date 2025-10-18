@@ -4,6 +4,7 @@ export interface Punch {
   endTime: string | null; // null si punch actif
   tags: string[];
   description: string;
+  notes?: string; // Notes facultatives
   duration?: number; // calculé en minutes
 }
 

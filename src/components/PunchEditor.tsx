@@ -17,6 +17,7 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
 
   const [description, setDescription] = useState(punch.description);
   const [selectedTags, setSelectedTags] = useState(punch.tags);
+  const [notes, setNotes] = useState(punch.notes || '');
   const [startDateStr, setStartDateStr] = useState(
     startDate.toISOString().split('T')[0]
   );
@@ -51,6 +52,7 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
         endTime: newEndDate.toISOString(),
         description,
         tags: selectedTags,
+        notes,
       });
 
       onClose();
@@ -143,13 +145,39 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
           {/* Tags */}
           <div>
             <label className="block text-sm font-medium text-platinum-300 mb-2">
-              Tags
+              Tag
             </label>
             <TagSelector
               availableTags={tags}
               selectedTags={selectedTags}
               onTagsChange={setSelectedTags}
+              singleSelect={true}
             />
+          </div>
+
+          {/* Notes Section - Zen Contemporary Design */}
+          <div>
+            <label className="block text-sm font-medium text-platinum-300 mb-3 flex items-center gap-2">
+              <span className="text-base">📝</span>
+              <span>Notes</span>
+              <span className="text-xs text-platinum-500 font-normal ml-auto">Optional</span>
+            </label>
+            <div className="relative">
+              <textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Add your thoughts, context, or reflections..."
+                rows={4}
+                className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700/50 rounded-xl text-platinum-100 placeholder-platinum-600/50 focus:outline-none focus:ring-1 focus:ring-gold-500/30 focus:border-gold-500/30 transition-all resize-none text-sm leading-relaxed backdrop-blur-sm"
+                style={{
+                  fontFamily: 'system-ui, -apple-system, sans-serif',
+                  lineHeight: '1.6',
+                }}
+              />
+              <div className="absolute bottom-3 right-3 text-xs text-platinum-600 pointer-events-none">
+                {notes.length} chars
+              </div>
+            </div>
           </div>
 
           {/* Actions */}

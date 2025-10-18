@@ -5,18 +5,30 @@ interface TagSelectorProps {
   availableTags: Tag[];
   selectedTags: string[];
   onTagsChange: (tags: string[]) => void;
+  singleSelect?: boolean; // Mode single selection
 }
 
 const TagSelector: React.FC<TagSelectorProps> = ({
   availableTags,
   selectedTags,
   onTagsChange,
+  singleSelect = true, // Single tag par défaut
 }) => {
   const toggleTag = (tagId: string) => {
-    if (selectedTags.includes(tagId)) {
-      onTagsChange(selectedTags.filter(id => id !== tagId));
+    if (singleSelect) {
+      // Mode single: sélectionner uniquement ce tag
+      if (selectedTags.includes(tagId)) {
+        onTagsChange([]); // Désélectionner si déjà sélectionné
+      } else {
+        onTagsChange([tagId]); // Sélectionner uniquement celui-ci
+      }
     } else {
-      onTagsChange([...selectedTags, tagId]);
+      // Mode multiple (ancien comportement)
+      if (selectedTags.includes(tagId)) {
+        onTagsChange(selectedTags.filter(id => id !== tagId));
+      } else {
+        onTagsChange([...selectedTags, tagId]);
+      }
     }
   };
 

@@ -4,11 +4,14 @@ import { formatDurationWithSeconds, getSecondsSinceStart } from '../utils/dateUt
 import TagSelector from './TagSelector';
 
 const PunchButton: React.FC = () => {
-  const { activePunch, startPunch, stopPunch, data } = useApp();
+  const { activePunch, startPunch, stopPunch, data, updatePunch } = useApp();
   const [description, setDescription] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [notes, setNotes] = useState('');
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [showForm, setShowForm] = useState(false);
+  const [initialTag, setInitialTag] = useState<string>('');
+  const [initialDescription, setInitialDescription] = useState<string>('');
 
   // Update elapsed time every second when active
   useEffect(() => {
@@ -25,13 +28,42 @@ const PunchButton: React.FC = () => {
     if (activePunch) {
       setDescription(activePunch.description);
       setSelectedTags(activePunch.tags);
+      setNotes(activePunch.notes || '');
       setElapsedSeconds(getSecondsSinceStart(activePunch.startTime));
+      setInitialTag(activePunch.tags[0] || '');
+      setInitialDescription(activePunch.description);
     } else {
       setDescription('');
       setSelectedTags([]);
+      setNotes('');
       setElapsedSeconds(0);
+      setInitialTag('');
+      setInitialDescription('');
     }
   }, [activePunch]);
+
+  // Auto-restart punch si tag ou description change
+  useEffect(() => {
+    if (activePunch && (selectedTags[0] !== initialTag || description !== initialDescription)) {
+      // Ne déclencher que si les valeurs sont différentes ET non vides
+      if ((selectedTags[0] && selectedTags[0] !== initialTag) ||
+          (description && description !== initialDescription)) {
+        // Stopper le punch actuel avec les anciennes valeurs
+        stopPunch(initialDescription, [initialTag]);
+        // Démarrer un nouveau punch avec les nouvelles valeurs
+        setTimeout(() => {
+          startPunch(description, selectedTags, notes);
+        }, 100);
+      }
+    }
+  }, [selectedTags, description]);
+
+  // Mettre à jour les notes en temps réel
+  useEffect(() => {
+    if (activePunch && notes !== (activePunch.notes || '')) {
+      updatePunch(activePunch.id, { notes });
+    }
+  }, [notes, activePunch]);
 
   const handlePunchToggle = () => {
     if (activePunch) {
@@ -41,7 +73,7 @@ const PunchButton: React.FC = () => {
       if (!showForm) {
         setShowForm(true);
       } else {
-        startPunch(description, selectedTags);
+        startPunch(description, selectedTags, notes);
         setShowForm(false);
       }
     }
@@ -52,6 +84,7 @@ const PunchButton: React.FC = () => {
       setShowForm(false);
       setDescription('');
       setSelectedTags([]);
+      setNotes('');
     }
   };
 
@@ -88,14 +121,42 @@ const PunchButton: React.FC = () => {
 
           <div>
             <label className="block text-sm font-medium text-platinum-300 mb-2">
-              Tags
+              Tag
             </label>
             <TagSelector
               availableTags={data.tags}
               selectedTags={selectedTags}
               onTagsChange={setSelectedTags}
+              singleSelect={true}
             />
           </div>
+
+          {/* Notes Section - Zen Contemporary Design */}
+          {activePunch && (
+            <div className="pt-2">
+              <label className="block text-sm font-medium text-platinum-300 mb-3 flex items-center gap-2">
+                <span className="text-base">📝</span>
+                <span>Notes</span>
+                <span className="text-xs text-platinum-500 font-normal ml-auto">Optional</span>
+              </label>
+              <div className="relative">
+                <textarea
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  placeholder="Add your thoughts, context, or reflections..."
+                  rows={3}
+                  className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700/50 rounded-xl text-platinum-100 placeholder-platinum-600/50 focus:outline-none focus:ring-1 focus:ring-gold-500/30 focus:border-gold-500/30 transition-all resize-none text-sm leading-relaxed backdrop-blur-sm"
+                  style={{
+                    fontFamily: 'system-ui, -apple-system, sans-serif',
+                    lineHeight: '1.6',
+                  }}
+                />
+                <div className="absolute bottom-3 right-3 text-xs text-platinum-600 pointer-events-none">
+                  {notes.length} chars
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
