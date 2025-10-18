@@ -105,10 +105,10 @@ const PunchButton: React.FC = () => {
           onClick={handlePunchToggle}
           className={`flex-1 py-4 px-6 rounded-xl font-semibold text-lg tracking-wide transition-all transform hover:scale-[1.02] active:scale-[0.98] ${
             activePunch
-              ? 'bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white shadow-elegant-lg'
+              ? 'bg-gradient-to-r from-slate-700 to-slate-600 hover:from-slate-600 hover:to-slate-500 text-platinum-200 shadow-elegant-lg border border-slate-500/30'
               : showForm
               ? 'bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-slate-900 shadow-elegant-lg'
-              : 'bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-elegant-lg'
+              : 'bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-500 hover:to-slate-600 text-platinum-100 shadow-elegant-lg border border-gold-500/20'
           }`}
         >
           {activePunch ? '⏹ Stop' : showForm ? '▶ Start' : '▶ Punch In'}
@@ -128,7 +128,7 @@ const PunchButton: React.FC = () => {
       <div className="mt-4 flex items-center justify-center gap-2 text-sm">
         <div
           className={`w-2 h-2 rounded-full ${
-            activePunch ? 'bg-emerald-500 animate-pulse-subtle' : 'bg-slate-600'
+            activePunch ? 'bg-gold-500 animate-pulse-subtle' : 'bg-slate-600'
           }`}
         />
         <span className="text-platinum-500">

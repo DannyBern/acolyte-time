@@ -17,17 +17,11 @@ function App() {
           <div className="max-w-4xl mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-gold-600 to-gold-500 rounded-xl flex items-center justify-center shadow-elegant">
-                  <span className="text-xl">⏱</span>
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold text-platinum-100 tracking-tight">
-                    Acolyte Time
-                  </h1>
-                  <p className="text-xs text-platinum-500 uppercase tracking-widest">
-                    Professional Time Tracking
-                  </p>
-                </div>
+                <img
+                  src="/acolyte-logo.png"
+                  alt="Acolyte"
+                  className="w-12 h-12 object-contain"
+                />
               </div>
 
               {/* Menu */}
