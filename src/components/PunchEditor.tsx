@@ -1,0 +1,176 @@
+import React, { useState } from 'react';
+import type { Punch, Tag } from '../types';
+import { useApp } from '../context/AppContext';
+import TagSelector from './TagSelector';
+
+interface PunchEditorProps {
+  punch: Punch;
+  tags: Tag[];
+  onClose: () => void;
+}
+
+const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
+  const { updatePunch } = useApp();
+
+  const startDate = new Date(punch.startTime);
+  const endDate = punch.endTime ? new Date(punch.endTime) : new Date();
+
+  const [description, setDescription] = useState(punch.description);
+  const [selectedTags, setSelectedTags] = useState(punch.tags);
+  const [startDateStr, setStartDateStr] = useState(
+    startDate.toISOString().split('T')[0]
+  );
+  const [startTimeStr, setStartTimeStr] = useState(
+    startDate.toTimeString().slice(0, 5)
+  );
+  const [endDateStr, setEndDateStr] = useState(
+    endDate.toISOString().split('T')[0]
+  );
+  const [endTimeStr, setEndTimeStr] = useState(
+    endDate.toTimeString().slice(0, 5)
+  );
+
+  const handleSave = () => {
+    try {
+      const [startHours, startMinutes] = startTimeStr.split(':').map(Number);
+      const [endHours, endMinutes] = endTimeStr.split(':').map(Number);
+
+      const newStartDate = new Date(startDateStr);
+      newStartDate.setHours(startHours, startMinutes, 0, 0);
+
+      const newEndDate = new Date(endDateStr);
+      newEndDate.setHours(endHours, endMinutes, 0, 0);
+
+      if (newEndDate <= newStartDate) {
+        alert('End time must be after start time');
+        return;
+      }
+
+      updatePunch(punch.id, {
+        startTime: newStartDate.toISOString(),
+        endTime: newEndDate.toISOString(),
+        description,
+        tags: selectedTags,
+      });
+
+      onClose();
+    } catch (error) {
+      alert('Invalid date/time format');
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in">
+      <div className="bg-slate-850 rounded-2xl max-w-lg w-full shadow-elegant-xl border border-slate-700/50 animate-scale-in">
+        {/* Header */}
+        <div className="px-6 py-4 border-b border-slate-700/50 flex items-center justify-between">
+          <h2 className="text-2xl font-semibold text-platinum-100">Edit Punch</h2>
+          <button
+            onClick={onClose}
+            className="text-platinum-400 hover:text-platinum-100 text-2xl leading-none transition-colors"
+          >
+            ×
+          </button>
+        </div>
+
+        {/* Content */}
+        <div className="p-6 space-y-4">
+          {/* Description */}
+          <div>
+            <label className="block text-sm font-medium text-platinum-300 mb-2">
+              Description
+            </label>
+            <input
+              type="text"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-platinum-100 focus:outline-none focus:ring-2 focus:ring-gold-500/50"
+            />
+          </div>
+
+          {/* Start Date/Time */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm font-medium text-platinum-300 mb-2">
+                Start Date
+              </label>
+              <input
+                type="date"
+                value={startDateStr}
+                onChange={(e) => setStartDateStr(e.target.value)}
+                className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-platinum-100 focus:outline-none focus:ring-2 focus:ring-gold-500/50"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-platinum-300 mb-2">
+                Start Time
+              </label>
+              <input
+                type="time"
+                value={startTimeStr}
+                onChange={(e) => setStartTimeStr(e.target.value)}
+                className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-platinum-100 focus:outline-none focus:ring-2 focus:ring-gold-500/50"
+              />
+            </div>
+          </div>
+
+          {/* End Date/Time */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm font-medium text-platinum-300 mb-2">
+                End Date
+              </label>
+              <input
+                type="date"
+                value={endDateStr}
+                onChange={(e) => setEndDateStr(e.target.value)}
+                className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-platinum-100 focus:outline-none focus:ring-2 focus:ring-gold-500/50"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-platinum-300 mb-2">
+                End Time
+              </label>
+              <input
+                type="time"
+                value={endTimeStr}
+                onChange={(e) => setEndTimeStr(e.target.value)}
+                className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-platinum-100 focus:outline-none focus:ring-2 focus:ring-gold-500/50"
+              />
+            </div>
+          </div>
+
+          {/* Tags */}
+          <div>
+            <label className="block text-sm font-medium text-platinum-300 mb-2">
+              Tags
+            </label>
+            <TagSelector
+              availableTags={tags}
+              selectedTags={selectedTags}
+              onTagsChange={setSelectedTags}
+            />
+          </div>
+
+          {/* Actions */}
+          <div className="flex gap-3 pt-4">
+            <button
+              onClick={handleSave}
+              className="flex-1 py-3 bg-gold-600 hover:bg-gold-500 text-slate-900 rounded-lg font-semibold transition-colors"
+            >
+              Save Changes
+            </button>
+            <button
+              onClick={onClose}
+              className="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-platinum-300 rounded-lg font-semibold transition-colors"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PunchEditor;
