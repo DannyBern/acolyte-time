@@ -2,13 +2,52 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import type { Tag } from '../types';
 
+// Palette de couleurs neutres et professionnelles
 const PRESET_COLORS = [
-  '#3b82f6', '#8b5cf6', '#ec4899', '#f43f5e', '#ef4444',
-  '#f97316', '#f59e0b', '#eab308', '#84cc16', '#10b981',
-  '#14b8a6', '#06b6d4', '#0ea5e9', '#6366f1', '#a855f7',
+  '#6B7280', // Gray 500 - Neutre
+  '#94A3B8', // Slate 400 - Neutre clair
+  '#475569', // Slate 600 - Neutre foncé
+  '#71717A', // Zinc 500 - Neutre moderne
+  '#52525B', // Zinc 600 - Charcoal
+  '#3F3F46', // Zinc 700 - Anthracite
+  '#78716C', // Stone 500 - Taupe
+  '#57534E', // Stone 600 - Brun neutre
+  '#64748B', // Slate 500 - Bleu gris
+  '#334155', // Slate 700 - Bleu foncé neutre
+  '#4B5563', // Gray 600 - Gris moyen
+  '#374151', // Gray 700 - Gris foncé
+  '#1F2937', // Gray 800 - Charcoal profond
+  '#525252', // Neutral 600
+  '#404040', // Neutral 700
 ];
 
-const PRESET_ICONS = ['💻', '🤝', '🎨', '🔍', '📝', '📞', '💡', '🎯', '📊', '🛠', '📧', '☕'];
+// Emojis professionnels 3D de haute qualité (Microsoft Fluent style)
+const PRESET_ICONS = [
+  '💼', // Briefcase - Business
+  '📊', // Chart - Analytics
+  '🎯', // Target - Goals
+  '⚡', // Lightning - Energy/Fast
+  '🔔', // Bell - Notifications
+  '📱', // Phone - Communication
+  '💻', // Laptop - Development
+  '📝', // Memo - Writing
+  '🔍', // Magnifier - Research
+  '⚙️', // Gear - Settings
+  '📧', // Email - Messages
+  '📅', // Calendar - Schedule
+  '🏆', // Trophy - Achievement
+  '⭐', // Star - Important
+  '🎨', // Palette - Design
+  '🔒', // Lock - Security
+  '📈', // Growth chart - Progress
+  '💡', // Bulb - Ideas
+  '🚀', // Rocket - Launch
+  '🎓', // Graduation - Learning
+  '🏃', // Running - Fitness
+  '☕', // Coffee - Break
+  '🌐', // Globe - International
+  '📦', // Package - Delivery
+];
 
 const TagManager: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const { data, addTag, updateTag, deleteTag } = useApp();

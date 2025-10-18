@@ -4,11 +4,11 @@ const STORAGE_KEY = 'acolyte-time-data';
 const STORAGE_VERSION = '1.0.0';
 
 const DEFAULT_TAGS: Tag[] = [
-  { id: '1', name: 'Development', color: '#3b82f6', icon: '💻' },
-  { id: '2', name: 'Meeting', color: '#8b5cf6', icon: '🤝' },
-  { id: '3', name: 'Design', color: '#ec4899', icon: '🎨' },
-  { id: '4', name: 'Research', color: '#10b981', icon: '🔍' },
-  { id: '5', name: 'Documentation', color: '#f59e0b', icon: '📝' },
+  { id: '1', name: 'Development', color: '#6B7280', icon: '💻' },
+  { id: '2', name: 'Meeting', color: '#475569', icon: '📱' },
+  { id: '3', name: 'Design', color: '#64748B', icon: '🎨' },
+  { id: '4', name: 'Research', color: '#71717A', icon: '🔍' },
+  { id: '5', name: 'Documentation', color: '#52525B', icon: '📝' },
 ];
 
 export const getDefaultAppData = (): AppData => ({
