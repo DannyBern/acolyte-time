@@ -105,45 +105,34 @@ const TimeView: React.FC = () => {
         {/* Tag Distribution */}
         {stats.tagDistribution.length > 0 && (
           <div className="space-y-3">
-            <button
-              onClick={() => setIsDistributionOpen(!isDistributionOpen)}
-              className="w-full flex items-center justify-between text-sm font-medium text-platinum-300 uppercase tracking-wider hover:text-platinum-100 transition-colors py-2 px-3 hover:bg-slate-700/50 rounded-lg"
-            >
-              <span>Time Distribution</span>
-              <span className="text-lg transition-transform duration-300" style={{ transform: isDistributionOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
-                ▼
-              </span>
-            </button>
-
-            {isDistributionOpen && (
-              <div className="space-y-3 pt-2">
-                {stats.tagDistribution.map(item => (
-                  <div key={item.tagId} className="space-y-1">
-                    <div className="flex items-center justify-between text-sm">
-                      <div className="flex items-center gap-2">
-                        <div
-                          className="w-3 h-3 rounded-full"
-                          style={{ backgroundColor: item.tagColor }}
-                        />
-                        <span className="text-platinum-200">{item.tagName}</span>
-                      </div>
-                      <span className="text-platinum-400 font-mono">
-                        {formatDuration(item.minutes)} ({item.percentage.toFixed(1)}%)
-                      </span>
-                    </div>
-                    <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{
-                          backgroundColor: item.tagColor,
-                          width: `${item.percentage}%`,
-                        }}
-                      />
-                    </div>
+            <div className="text-sm font-medium text-platinum-300 uppercase tracking-wider mb-3">
+              Time by Tag
+            </div>
+            {stats.tagDistribution.map(item => (
+              <div key={item.tagId} className="space-y-1">
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: item.tagColor }}
+                    />
+                    <span className="text-platinum-200">{item.tagName}</span>
                   </div>
-                ))}
+                  <span className="text-platinum-400 font-mono">
+                    {formatDuration(item.minutes)} ({item.percentage.toFixed(1)}%)
+                  </span>
+                </div>
+                <div className="h-2 bg-slate-700 rounded-full overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all duration-500"
+                    style={{
+                      backgroundColor: item.tagColor,
+                      width: `${item.percentage}%`,
+                    }}
+                  />
+                </div>
               </div>
-            )}
+            ))}
           </div>
         )}
 
@@ -154,13 +143,29 @@ const TimeView: React.FC = () => {
         )}
       </div>
 
-      {/* Chart */}
+      {/* Chart - Collapsible */}
       {filteredPunches.length > 0 && (
-        <TimeChart
-          punches={filteredPunches}
-          viewMode={viewMode}
-          dateRange={dateRange}
-        />
+        <div className="bg-slate-850 rounded-2xl border border-slate-700/50">
+          <button
+            onClick={() => setIsDistributionOpen(!isDistributionOpen)}
+            className="w-full flex items-center justify-between text-lg font-semibold text-platinum-100 uppercase tracking-wider hover:text-gold-400 transition-colors py-4 px-6 hover:bg-slate-700/50 rounded-t-2xl"
+          >
+            <span>Time Distribution</span>
+            <span className="text-xl transition-transform duration-300" style={{ transform: isDistributionOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+              ▼
+            </span>
+          </button>
+
+          {isDistributionOpen && (
+            <div className="px-6 pb-6 pt-2">
+              <TimeChart
+                punches={filteredPunches}
+                viewMode={viewMode}
+                dateRange={dateRange}
+              />
+            </div>
+          )}
+        </div>
       )}
 
       {/* Punch List */}

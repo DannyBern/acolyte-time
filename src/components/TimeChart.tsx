@@ -71,11 +71,7 @@ const TimeChart: React.FC<TimeChartProps> = ({ punches, viewMode, dateRange }) =
   const maxValue = Math.max(...chartData.map(d => d.value), 1);
 
   return (
-    <div className="bg-slate-850 rounded-2xl p-6 border border-slate-700/50">
-      <h3 className="text-lg font-semibold text-platinum-100 mb-6 uppercase tracking-wider">
-        Time Distribution
-      </h3>
-
+    <div>
       <div className="space-y-2">
         {chartData.map((item, index) => {
           const percentage = (item.value / maxValue) * 100;
