@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
-import { formatDuration, getTimeSinceStart } from '../utils/dateUtils';
+import { formatDurationWithSeconds, getSecondsSinceStart } from '../utils/dateUtils';
 import TagSelector from './TagSelector';
 
 const PunchButton: React.FC = () => {
   const { activePunch, startPunch, stopPunch, data } = useApp();
   const [description, setDescription] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [elapsedTime, setElapsedTime] = useState(0);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [showForm, setShowForm] = useState(false);
 
   // Update elapsed time every second when active
   useEffect(() => {
     if (activePunch) {
       const interval = setInterval(() => {
-        setElapsedTime(getTimeSinceStart(activePunch.startTime));
+        setElapsedSeconds(getSecondsSinceStart(activePunch.startTime));
       }, 1000);
 
       return () => clearInterval(interval);
@@ -25,11 +25,11 @@ const PunchButton: React.FC = () => {
     if (activePunch) {
       setDescription(activePunch.description);
       setSelectedTags(activePunch.tags);
-      setElapsedTime(getTimeSinceStart(activePunch.startTime));
+      setElapsedSeconds(getSecondsSinceStart(activePunch.startTime));
     } else {
       setDescription('');
       setSelectedTags([]);
-      setElapsedTime(0);
+      setElapsedSeconds(0);
     }
   }, [activePunch]);
 
@@ -61,7 +61,7 @@ const PunchButton: React.FC = () => {
       {activePunch && (
         <div className="mb-6 text-center animate-fade-in">
           <div className="text-5xl font-light text-gold-400 tracking-wider mb-2">
-            {formatDuration(elapsedTime)}
+            {formatDurationWithSeconds(elapsedSeconds)}
           </div>
           <div className="text-sm text-platinum-400 uppercase tracking-widest">
             Time Elapsed

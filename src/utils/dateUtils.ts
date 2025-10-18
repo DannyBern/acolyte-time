@@ -144,3 +144,23 @@ export const getTimeSinceStart = (startTime: string): number => {
   const now = new Date();
   return Math.floor((now.getTime() - start.getTime()) / 1000 / 60);
 };
+
+// Format duration with seconds for live timer
+export const formatDurationWithSeconds = (seconds: number): string => {
+  const hours = Math.floor(seconds / 3600);
+  const mins = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+
+  if (hours === 0) {
+    return `${mins}m ${secs}s`;
+  }
+
+  return `${hours}h ${mins}m ${secs}s`;
+};
+
+// Get elapsed time in seconds since start
+export const getSecondsSinceStart = (startTime: string): number => {
+  const start = new Date(startTime);
+  const now = new Date();
+  return Math.floor((now.getTime() - start.getTime()) / 1000);
+};
