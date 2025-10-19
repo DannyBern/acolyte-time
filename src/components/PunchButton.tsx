@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useApp } from '../context/AppContext';
 import { formatDurationWithSeconds, getSecondsSinceStart } from '../utils/dateUtils';
 import TagSelector from './TagSelector';
@@ -12,6 +12,8 @@ const PunchButton: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const [initialTag, setInitialTag] = useState<string>('');
   const [initialDescription, setInitialDescription] = useState<string>('');
+  const notesUpdateTimeoutRef = useRef<number | null>(null);
+  const isUpdatingNotesRef = useRef(false);
 
   // Update elapsed time every second when active
   useEffect(() => {
@@ -28,7 +30,10 @@ const PunchButton: React.FC = () => {
     if (activePunch) {
       setDescription(activePunch.description);
       setSelectedTags(activePunch.tags);
-      setNotes(activePunch.notes || '');
+      // Ne mettre à jour les notes que si on ne les modifie pas actuellement
+      if (!isUpdatingNotesRef.current) {
+        setNotes(activePunch.notes || '');
+      }
       setElapsedSeconds(getSecondsSinceStart(activePunch.startTime));
       setInitialTag(activePunch.tags[0] || '');
       setInitialDescription(activePunch.description);
@@ -58,12 +63,34 @@ const PunchButton: React.FC = () => {
     }
   }, [selectedTags, description]);
 
-  // Mettre à jour les notes en temps réel
+  // Mettre à jour les notes avec debounce pour éviter le flickering
   useEffect(() => {
-    if (activePunch && notes !== (activePunch.notes || '')) {
-      updatePunch(activePunch.id, { notes });
+    if (activePunch) {
+      isUpdatingNotesRef.current = true;
+
+      // Annuler le timeout précédent
+      if (notesUpdateTimeoutRef.current) {
+        clearTimeout(notesUpdateTimeoutRef.current);
+      }
+
+      // Sauvegarder après 500ms d'inactivité
+      notesUpdateTimeoutRef.current = setTimeout(() => {
+        if (notes !== (activePunch.notes || '')) {
+          updatePunch(activePunch.id, { notes });
+        }
+        // Réinitialiser le flag après la mise à jour
+        setTimeout(() => {
+          isUpdatingNotesRef.current = false;
+        }, 100);
+      }, 500);
     }
-  }, [notes, activePunch]);
+
+    return () => {
+      if (notesUpdateTimeoutRef.current) {
+        clearTimeout(notesUpdateTimeoutRef.current);
+      }
+    };
+  }, [notes]);
 
   const handlePunchToggle = () => {
     if (activePunch) {
