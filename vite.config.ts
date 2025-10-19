@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './', // For GitHub Pages, use './' for relative paths
+  base: '/acolyte-time/', // For GitHub Pages with repository name
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

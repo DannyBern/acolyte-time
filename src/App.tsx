@@ -18,7 +18,7 @@ function App() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <img
-                  src="./acolyte-logo.png"
+                  src="/acolyte-time/acolyte-logo.png"
                   alt="Acolyte"
                   className="w-12 h-12 object-contain"
                 />
