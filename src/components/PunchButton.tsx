@@ -55,9 +55,9 @@ const PunchButton: React.FC = () => {
           (description && description !== initialDescription)) {
         // Stopper le punch actuel avec les anciennes valeurs
         stopPunch(initialDescription, [initialTag]);
-        // Démarrer un nouveau punch avec les nouvelles valeurs
+        // Démarrer un nouveau punch avec les nouvelles valeurs (forceStart: true)
         setTimeout(() => {
-          startPunch(description, selectedTags, notes);
+          startPunch(description, selectedTags, notes, true);
         }, 100);
       }
     }
