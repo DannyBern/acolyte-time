@@ -4,10 +4,16 @@ import PunchButton from './components/PunchButton';
 import TimeView from './components/TimeView';
 import TagManager from './components/TagManager';
 import ExportImport from './components/ExportImport';
+import SplashScreen from './components/SplashScreen';
 
 function App() {
   const [showTagManager, setShowTagManager] = useState(false);
   const [showExportImport, setShowExportImport] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+
+  if (showSplash) {
+    return <SplashScreen onComplete={() => setShowSplash(false)} />;
+  }
 
   return (
     <AppProvider>
