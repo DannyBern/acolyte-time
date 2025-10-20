@@ -14,6 +14,8 @@ const PunchButton: React.FC = () => {
   const [initialDescription, setInitialDescription] = useState<string>('');
   const notesUpdateTimeoutRef = useRef<number | null>(null);
   const isUpdatingNotesRef = useRef(false);
+  const punchInAudioRef = useRef<HTMLAudioElement | null>(null);
+  const stopAudioRef = useRef<HTMLAudioElement | null>(null);
 
   // Update elapsed time every second when active
   useEffect(() => {
@@ -94,12 +96,28 @@ const PunchButton: React.FC = () => {
 
   const handlePunchToggle = () => {
     if (activePunch) {
+      // Jouer le son de Stop (electrical cord unplug)
+      if (stopAudioRef.current) {
+        stopAudioRef.current.volume = 1.0; // Volume maximum pour clarté
+        stopAudioRef.current.currentTime = 0; // Redémarrer depuis le début
+        stopAudioRef.current.play().catch(err => {
+          console.log('Stop audio bloqué:', err);
+        });
+      }
       stopPunch(description, selectedTags);
       setShowForm(false);
     } else {
       if (!showForm) {
         setShowForm(true);
       } else {
+        // Jouer le son de Punch In (VHS tape insert)
+        if (punchInAudioRef.current) {
+          punchInAudioRef.current.volume = 1.0; // Volume maximum pour clarté
+          punchInAudioRef.current.currentTime = 0; // Redémarrer depuis le début
+          punchInAudioRef.current.play().catch(err => {
+            console.log('Punch In audio bloqué:', err);
+          });
+        }
         startPunch(description, selectedTags, notes);
         setShowForm(false);
       }
@@ -117,6 +135,18 @@ const PunchButton: React.FC = () => {
 
   return (
     <div className="bg-slate-850 rounded-2xl p-6 shadow-elegant-xl border border-slate-700/50">
+      {/* Audio elements - invisible mais prêts à jouer */}
+      <audio
+        ref={punchInAudioRef}
+        src="/acolyte-time/punch-in.mp3"
+        preload="auto"
+      />
+      <audio
+        ref={stopAudioRef}
+        src="/acolyte-time/punch-stop.mp3"
+        preload="auto"
+      />
+
       {/* Timer Display */}
       {activePunch && (
         <div className="mb-6 text-center animate-fade-in">

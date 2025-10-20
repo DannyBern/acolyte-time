@@ -12,13 +12,20 @@ function App() {
   const [showSplash, setShowSplash] = useState(true);
   const appIntroAudioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Jouer le son d'intro quand le splash se termine
+  // Jouer le son d'intro quand le splash se termine (avec délai de 1 seconde)
   useEffect(() => {
     if (!showSplash && appIntroAudioRef.current) {
-      appIntroAudioRef.current.volume = 1.0; // Volume maximum
-      appIntroAudioRef.current.play().catch(err => {
-        console.log('Audio intro bloqué:', err);
-      });
+      // Attendre 1 seconde pour s'assurer que l'audio joue complètement
+      const delayTimer = setTimeout(() => {
+        if (appIntroAudioRef.current) {
+          appIntroAudioRef.current.volume = 1.0; // Volume maximum
+          appIntroAudioRef.current.play().catch(err => {
+            console.log('Audio intro bloqué:', err);
+          });
+        }
+      }, 1000);
+
+      return () => clearTimeout(delayTimer);
     }
   }, [showSplash]);
 
