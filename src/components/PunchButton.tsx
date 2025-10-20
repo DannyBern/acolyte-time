@@ -217,38 +217,24 @@ const PunchButton: React.FC = () => {
         </div>
       )}
 
-      {/* Action Buttons - 3D Image Buttons */}
+      {/* Action Buttons */}
       <div className="flex gap-6 justify-center items-center">
-        {/* Main Punch/Stop Button - 3D with Press Animation */}
+        {/* Main Punch/Stop Button with Press Animation */}
         <button
           onClick={handlePunchToggle}
-          className="relative group transition-all duration-150 active:translate-y-1"
-          style={{
-            filter: 'drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3))',
-          }}
+          className={`relative px-12 py-4 rounded-xl font-semibold text-lg transition-all duration-150 active:translate-y-1 active:shadow-inner ${
+            activePunch
+              ? 'bg-gradient-to-br from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white shadow-elegant-lg hover:shadow-elegant-2xl'
+              : 'bg-gradient-to-br from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white shadow-elegant-lg hover:shadow-elegant-2xl'
+          }`}
         >
-          <div
-            className="w-64 h-32 bg-contain bg-center bg-no-repeat transition-all duration-150 group-active:brightness-90"
-            style={{
-              backgroundImage: 'url(/acolyte-time/buttons.png)',
-              backgroundPosition: activePunch ? '75% 50%' : '25% 50%',
-              backgroundSize: '200% 100%',
-              imageRendering: '-webkit-optimize-contrast',
-            }}
-          />
-          {/* Subtle glow on hover */}
-          <div
-            className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-xl ${
-              activePunch ? 'bg-rose-400' : 'bg-emerald-400'
-            }`}
-            style={{ zIndex: -1 }}
-          />
+          {activePunch ? 'Stop' : showForm ? 'Punch In' : 'Start Timer'}
         </button>
 
         {showForm && !activePunch && (
           <button
             onClick={handleCancel}
-            className="px-6 py-3 rounded-xl font-semibold text-sm text-platinum-300 bg-slate-700/50 hover:bg-slate-600/50 transition-all border border-slate-600/50"
+            className="px-6 py-3 rounded-xl font-semibold text-sm text-platinum-300 bg-slate-700/50 hover:bg-slate-600/50 transition-all duration-150 active:translate-y-1 border border-slate-600/50"
           >
             Cancel
           </button>
