@@ -8,14 +8,14 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Jouer la vidéo au montage du composant
+    // Jouer la vidéo et l'audio au montage du composant
     if (videoRef.current) {
-      videoRef.current.volume = 1.0; // Volume maximum pour qualité optimale
+      videoRef.current.volume = 0; // Video muette - seul l'audio d'intro joue
       videoRef.current.play().catch(err => {
         console.log('Video autoplay bloqué:', err);
-        // Certains navigateurs bloquent l'autoplay avec son
         // Essayer en mode muet si autoplay échoue
         if (videoRef.current) {
           videoRef.current.muted = true;
@@ -23,11 +23,41 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
         }
       });
     }
+
+    // Jouer l'audio d'intro
+    if (audioRef.current) {
+      audioRef.current.volume = 1.0; // Volume maximum pour qualité optimale
+      audioRef.current.play().catch(err => {
+        console.log('Audio autoplay bloqué:', err);
+      });
+    }
   }, []);
 
   const handleVideoEnded = () => {
     // Démarrer le fade-out smooth
     setIsFadingOut(true);
+
+    // Fade-out progressif de l'audio
+    if (audioRef.current) {
+      const audio = audioRef.current;
+      const fadeDuration = 500; // 500ms de fade-out
+      const fadeSteps = 20;
+      const fadeInterval = fadeDuration / fadeSteps;
+      const volumeDecrement = audio.volume / fadeSteps;
+
+      let currentStep = 0;
+      const fadeOutInterval = setInterval(() => {
+        currentStep++;
+        if (currentStep >= fadeSteps || audio.volume <= 0.05) {
+          audio.volume = 0;
+          audio.pause();
+          clearInterval(fadeOutInterval);
+        } else {
+          audio.volume = Math.max(0, audio.volume - volumeDecrement);
+        }
+      }, fadeInterval);
+    }
+
     // Attendre la fin de l'animation de fade-out (500ms) avant de masquer complètement
     setTimeout(() => {
       setIsVisible(false);
@@ -54,6 +84,13 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
         left: 0,
       }}
     >
+      {/* Audio d'intro - invisible mais joue automatiquement */}
+      <audio
+        ref={audioRef}
+        src="/acolyte-time/intro-sound.mp3"
+        preload="auto"
+      />
+
       {/* Vidéo d'intro fullscreen avec optimisations professionnelles */}
       <video
         ref={videoRef}
@@ -72,7 +109,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
         } as React.CSSProperties}
         onEnded={handleVideoEnded}
         playsInline
-        muted={false}
+        muted={true}
         preload="auto"
         // Optimisations pour mobile et desktop
         webkit-playsinline="true"
