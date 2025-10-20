@@ -219,13 +219,13 @@ const PunchButton: React.FC = () => {
 
       {/* Action Buttons */}
       <div className="flex gap-6 justify-center items-center">
-        {/* Main Punch/Stop Button with Press Animation */}
+        {/* Main Punch/Stop Button - Simple Rectangular with Press Animation */}
         <button
           onClick={handlePunchToggle}
-          className={`relative px-12 py-4 rounded-xl font-semibold text-lg transition-all duration-150 active:translate-y-1 active:shadow-inner ${
+          className={`px-12 py-4 font-semibold text-lg transition-all duration-150 active:translate-y-1 active:brightness-90 shadow-lg ${
             activePunch
-              ? 'bg-gradient-to-br from-rose-600 to-rose-700 hover:from-rose-500 hover:to-rose-600 text-white shadow-elegant-lg hover:shadow-elegant-2xl'
-              : 'bg-gradient-to-br from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white shadow-elegant-lg hover:shadow-elegant-2xl'
+              ? 'bg-red-900/60 hover:bg-red-900/70 text-white'
+              : 'bg-olive-600/50 hover:bg-olive-600/60 text-white'
           }`}
         >
           {activePunch ? 'Stop' : showForm ? 'Punch In' : 'Start Timer'}
@@ -234,7 +234,7 @@ const PunchButton: React.FC = () => {
         {showForm && !activePunch && (
           <button
             onClick={handleCancel}
-            className="px-6 py-3 rounded-xl font-semibold text-sm text-platinum-300 bg-slate-700/50 hover:bg-slate-600/50 transition-all duration-150 active:translate-y-1 border border-slate-600/50"
+            className="px-6 py-3 font-semibold text-sm text-platinum-300 bg-slate-700/50 hover:bg-slate-600/50 transition-all duration-150 active:translate-y-1 border border-slate-600/50"
           >
             Cancel
           </button>
