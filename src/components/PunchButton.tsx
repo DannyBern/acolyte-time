@@ -217,18 +217,32 @@ const PunchButton: React.FC = () => {
         </div>
       )}
 
-      {/* Action Buttons */}
+      {/* Action Buttons - Professional Full Width Design */}
       <div className="space-y-4">
-        {/* Main Punch/Stop Button - Full Width with Press Animation */}
+        {/* Main Punch/Stop Button - Full Width with Professional Press Animation */}
         <button
           onClick={handlePunchToggle}
-          className={`w-full py-4 font-semibold text-lg transition-all duration-150 active:translate-y-1 active:brightness-90 shadow-lg ${
-            activePunch
-              ? 'bg-red-900/60 hover:bg-red-900/70 text-white'
+          className={`
+            relative w-full py-5 font-bold text-xl uppercase tracking-wide
+            transition-all duration-150 ease-out
+            rounded-lg
+            ${activePunch
+              ? 'bg-red-800/50 hover:bg-red-800/60 text-white border-2 border-red-700/70'
               : showForm
-              ? 'bg-green-700/60 hover:bg-green-700/70 text-white'
-              : 'bg-blue-700/60 hover:bg-blue-700/70 text-white'
-          }`}
+              ? 'bg-green-700/50 hover:bg-green-700/60 text-white border-2 border-green-600/70'
+              : 'bg-blue-700/50 hover:bg-blue-700/60 text-white border-2 border-blue-600/70'
+            }
+            shadow-[0_6px_0_0_rgba(0,0,0,0.3),0_8px_20px_rgba(0,0,0,0.2)]
+            hover:shadow-[0_6px_0_0_rgba(0,0,0,0.3),0_10px_25px_rgba(0,0,0,0.3)]
+            active:shadow-[0_2px_0_0_rgba(0,0,0,0.3),0_3px_8px_rgba(0,0,0,0.2)]
+            active:translate-y-[4px]
+            active:brightness-90
+            backdrop-blur-sm
+          `}
+          style={{
+            transform: 'translateZ(0)',
+            willChange: 'transform, box-shadow',
+          }}
         >
           {activePunch ? 'Stop' : showForm ? 'Punch In' : 'Start Timer'}
         </button>
@@ -236,7 +250,22 @@ const PunchButton: React.FC = () => {
         {showForm && !activePunch && (
           <button
             onClick={handleCancel}
-            className="w-full py-3 font-semibold text-sm text-platinum-300 bg-slate-700/50 hover:bg-slate-600/50 transition-all duration-150 active:translate-y-1 border border-slate-600/50"
+            className="
+              relative w-full py-3 font-semibold text-sm uppercase tracking-wider
+              text-platinum-300 bg-slate-700/50 hover:bg-slate-600/50
+              border-2 border-slate-600/50
+              rounded-lg
+              transition-all duration-150 ease-out
+              shadow-[0_4px_0_0_rgba(0,0,0,0.2),0_6px_15px_rgba(0,0,0,0.15)]
+              hover:shadow-[0_4px_0_0_rgba(0,0,0,0.2),0_8px_18px_rgba(0,0,0,0.2)]
+              active:shadow-[0_1px_0_0_rgba(0,0,0,0.2),0_2px_5px_rgba(0,0,0,0.15)]
+              active:translate-y-[3px]
+              backdrop-blur-sm
+            "
+            style={{
+              transform: 'translateZ(0)',
+              willChange: 'transform, box-shadow',
+            }}
           >
             Cancel
           </button>
