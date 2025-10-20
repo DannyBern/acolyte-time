@@ -3,6 +3,7 @@ import type { Punch, Tag } from '../types';
 import { formatTime, formatDate, formatDuration } from '../utils/dateUtils';
 import { calculatePunchDuration } from '../utils/storage';
 import { useApp } from '../context/AppContext';
+import { useTheme } from '../context/ThemeContext';
 import PunchEditor from './PunchEditor';
 
 interface PunchListProps {
@@ -12,6 +13,7 @@ interface PunchListProps {
 
 const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
   const { deletePunch } = useApp();
+  const { theme } = useTheme();
   const [editingPunch, setEditingPunch] = useState<Punch | null>(null);
   const [expandedNotes, setExpandedNotes] = useState<Set<string>>(new Set());
 
@@ -36,8 +38,14 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
 
   return (
     <>
-      <div className="bg-slate-850 rounded-2xl p-6 border border-slate-700/50">
-        <h3 className="text-lg font-semibold text-platinum-100 mb-4 uppercase tracking-wider">
+      <div className={`rounded-2xl p-6 border transition-colors ${
+        theme === 'dark'
+          ? 'bg-slate-850 border-slate-700/50'
+          : 'bg-white border-gray-200'
+      }`}>
+        <h3 className={`text-lg font-semibold mb-4 uppercase tracking-wider transition-colors ${
+          theme === 'dark' ? 'text-platinum-100' : 'text-gray-900'
+        }`}>
           Time Entries
         </h3>
 
@@ -49,16 +57,24 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
             return (
               <div
                 key={punch.id}
-                className="bg-slate-900 rounded-lg p-4 border border-slate-700/50 hover:border-slate-600 transition-all"
+                className={`rounded-lg p-4 border transition-all ${
+                  theme === 'dark'
+                    ? 'bg-slate-900 border-slate-700/50 hover:border-slate-600'
+                    : 'bg-gray-50 border-gray-200 hover:border-gray-300'
+                }`}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     {/* Date & Time */}
                     <div className="flex items-center gap-3 mb-2">
-                      <span className="text-platinum-400 text-sm font-medium">
+                      <span className={`text-sm font-medium transition-colors ${
+                        theme === 'dark' ? 'text-platinum-400' : 'text-gray-700'
+                      }`}>
                         {formatDate(startDate)}
                       </span>
-                      <span className="text-platinum-500 text-sm">
+                      <span className={`text-sm transition-colors ${
+                        theme === 'dark' ? 'text-platinum-500' : 'text-gray-600'
+                      }`}>
                         {formatTime(punch.startTime)} -{' '}
                         {punch.endTime ? formatTime(punch.endTime) : 'Active'}
                       </span>
@@ -66,7 +82,9 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
 
                     {/* Description */}
                     {punch.description && (
-                      <div className="text-platinum-100 mb-2">
+                      <div className={`mb-2 transition-colors ${
+                        theme === 'dark' ? 'text-platinum-100' : 'text-gray-900'
+                      }`}>
                         {punch.description}
                       </div>
                     )}
@@ -93,7 +111,9 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                     )}
 
                     {/* Duration */}
-                    <div className="text-gold-400 font-semibold">
+                    <div className={`font-semibold transition-colors ${
+                      theme === 'dark' ? 'text-gold-400' : 'text-amber-600'
+                    }`}>
                       {formatDuration(duration)}
                     </div>
 
@@ -101,7 +121,11 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                     {punch.notes && punch.notes.trim() && (
                       <button
                         onClick={() => toggleNotes(punch.id)}
-                        className="mt-2 text-sm text-platinum-400 hover:text-gold-400 transition-colors flex items-center gap-1"
+                        className={`mt-2 text-sm transition-colors flex items-center gap-1 ${
+                          theme === 'dark'
+                            ? 'text-platinum-400 hover:text-gold-400'
+                            : 'text-gray-600 hover:text-amber-600'
+                        }`}
                       >
                         <span>{expandedNotes.has(punch.id) ? '▼' : '▶'}</span>
                         <span>Notes</span>
@@ -110,7 +134,11 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
 
                     {/* Expanded Notes */}
                     {expandedNotes.has(punch.id) && punch.notes && (
-                      <div className="mt-3 p-3 bg-slate-800/50 border border-slate-700/50 rounded-lg text-sm text-platinum-300 leading-relaxed whitespace-pre-wrap">
+                      <div className={`mt-3 p-3 border rounded-lg text-sm leading-relaxed whitespace-pre-wrap transition-colors ${
+                        theme === 'dark'
+                          ? 'bg-slate-800/50 border-slate-700/50 text-platinum-300'
+                          : 'bg-white border-gray-300 text-gray-700'
+                      }`}>
                         {punch.notes}
                       </div>
                     )}
@@ -120,13 +148,21 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                   <div className="flex gap-2">
                     <button
                       onClick={() => setEditingPunch(punch)}
-                      className="px-3 py-1 text-sm text-platinum-400 hover:text-platinum-100 hover:bg-slate-700 rounded transition-colors"
+                      className={`px-3 py-1 text-sm rounded transition-colors ${
+                        theme === 'dark'
+                          ? 'text-platinum-400 hover:text-platinum-100 hover:bg-slate-700'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
+                      }`}
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => deletePunch(punch.id)}
-                      className="px-3 py-1 text-sm text-red-400 hover:text-red-300 hover:bg-red-900/20 rounded transition-colors"
+                      className={`px-3 py-1 text-sm rounded transition-colors ${
+                        theme === 'dark'
+                          ? 'text-red-400 hover:text-red-300 hover:bg-red-900/20'
+                          : 'text-red-600 hover:text-red-700 hover:bg-red-50'
+                      }`}
                     >
                       Delete
                     </button>
