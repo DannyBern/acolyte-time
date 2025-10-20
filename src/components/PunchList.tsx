@@ -16,6 +16,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
   const { theme } = useTheme();
   const [editingPunch, setEditingPunch] = useState<Punch | null>(null);
   const [expandedNotes, setExpandedNotes] = useState<Set<string>>(new Set());
+  const deleteAudioRef = React.useRef<HTMLAudioElement | null>(null);
 
   const tagMap = new Map(tags.map(t => [t.id, t]));
 
@@ -31,6 +32,19 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
     });
   };
 
+  const handleDelete = (punchId: string) => {
+    // Jouer le son de poubelle
+    if (deleteAudioRef.current) {
+      deleteAudioRef.current.volume = 1.0;
+      deleteAudioRef.current.currentTime = 0;
+      deleteAudioRef.current.play().catch(err => {
+        console.log('Delete audio bloqué:', err);
+      });
+    }
+    // Supprimer le punch
+    deletePunch(punchId);
+  };
+
   // Sort by date descending
   const sortedPunches = [...punches].sort((a, b) =>
     new Date(b.startTime).getTime() - new Date(a.startTime).getTime()
@@ -38,6 +52,13 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
 
   return (
     <>
+      {/* Audio element for delete sound */}
+      <audio
+        ref={deleteAudioRef}
+        src="/acolyte-time/delete-sound.mp3"
+        preload="auto"
+      />
+
       <div className={`rounded-2xl p-6 border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50'
@@ -157,7 +178,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                       Edit
                     </button>
                     <button
-                      onClick={() => deletePunch(punch.id)}
+                      onClick={() => handleDelete(punch.id)}
                       className={`px-3 py-1 text-sm rounded transition-colors ${
                         theme === 'dark'
                           ? 'text-red-400 hover:text-red-300 hover:bg-red-900/20'
