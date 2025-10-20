@@ -6,6 +6,7 @@ interface SplashScreenProps {
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
@@ -14,15 +15,24 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
       videoRef.current.volume = 1.0; // Volume maximum pour qualité optimale
       videoRef.current.play().catch(err => {
         console.log('Video autoplay bloqué:', err);
-        // Certains navigateurs bloquent l'autoplay
+        // Certains navigateurs bloquent l'autoplay avec son
+        // Essayer en mode muet si autoplay échoue
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          videoRef.current.play().catch(e => console.log('Autoplay complètement bloqué:', e));
+        }
       });
     }
   }, []);
 
   const handleVideoEnded = () => {
-    setIsVisible(false);
-    // Attendre la fin du fade-out avant d'appeler onComplete
-    setTimeout(onComplete, 300);
+    // Démarrer le fade-out smooth
+    setIsFadingOut(true);
+    // Attendre la fin de l'animation de fade-out (500ms) avant de masquer complètement
+    setTimeout(() => {
+      setIsVisible(false);
+      onComplete();
+    }, 500);
   };
 
   if (!isVisible) {
@@ -30,16 +40,43 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   }
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black">
-      {/* Vidéo d'intro fullscreen */}
+    <div
+      className={`fixed inset-0 z-[9999] bg-black transition-opacity duration-500 ${
+        isFadingOut ? 'opacity-0' : 'opacity-100'
+      }`}
+      style={{
+        // Forcer le plein écran et empêcher tout scrolling
+        overflow: 'hidden',
+        width: '100vw',
+        height: '100vh',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+      }}
+    >
+      {/* Vidéo d'intro fullscreen avec optimisations professionnelles */}
       <video
         ref={videoRef}
         src="/acolyte-time/intro.mp4"
-        className="w-full h-full object-cover"
+        className="w-full h-full"
+        style={{
+          // Optimisations pour une présentation fullscreen professionnelle
+          objectFit: 'cover',
+          objectPosition: 'center',
+          // Smooth rendering sur tous les navigateurs
+          WebkitTransform: 'translateZ(0)',
+          transform: 'translateZ(0)',
+          // Empêcher les barres noires
+          width: '100%',
+          height: '100%',
+        } as React.CSSProperties}
         onEnded={handleVideoEnded}
         playsInline
         muted={false}
         preload="auto"
+        // Optimisations pour mobile et desktop
+        webkit-playsinline="true"
+        x5-playsinline="true"
       />
     </div>
   );
