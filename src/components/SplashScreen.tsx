@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -6,16 +6,32 @@ interface SplashScreenProps {
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Durée totale de l'animation: 2.5 secondes
+    // Jouer le son au montage du composant
+    if (audioRef.current) {
+      audioRef.current.volume = 1.0; // Volume maximum pour qualité optimale
+      audioRef.current.play().catch(err => {
+        console.log('Audio autoplay bloqué:', err);
+        // Certains navigateurs bloquent l'autoplay
+      });
+    }
+
+    // Durée totale de l'animation: 5 secondes
     const timer = setTimeout(() => {
       setIsVisible(false);
       // Attendre la fin du fade-out avant d'appeler onComplete
       setTimeout(onComplete, 500);
-    }, 2500);
+    }, 5000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      // Arrêter le son si le composant est démonté
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
   }, [onComplete]);
 
   if (!isVisible) {
@@ -24,6 +40,13 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
 
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 animate-splash-fade-out">
+      {/* Audio du splash screen - invisible mais joue automatiquement */}
+      <audio
+        ref={audioRef}
+        src="/acolyte-time/splash-sound.mp3"
+        preload="auto"
+      />
+
       <div className="relative">
         {/* Effet de lueur derrière le logo */}
         <div className="absolute inset-0 blur-3xl opacity-30 animate-splash-glow">

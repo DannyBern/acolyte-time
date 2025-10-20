@@ -53,9 +53,9 @@ export default {
         'slide-down': 'slideDown 0.3s ease-out',
         'scale-in': 'scaleIn 0.2s ease-out',
         'pulse-subtle': 'pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'splash-zoom': 'splashZoom 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
-        'splash-fade-out': 'splashFadeOut 0.5s ease-in-out 2.5s forwards',
-        'splash-glow': 'splashGlow 2.5s ease-in-out infinite',
+        'splash-zoom': 'splashZoom 5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
+        'splash-fade-out': 'splashFadeOut 0.5s ease-in-out 5s forwards',
+        'splash-glow': 'splashGlow 5s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {

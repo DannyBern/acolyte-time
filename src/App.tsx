@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AppProvider } from './context/AppContext';
 import PunchButton from './components/PunchButton';
 import TimeView from './components/TimeView';
@@ -10,6 +10,17 @@ function App() {
   const [showTagManager, setShowTagManager] = useState(false);
   const [showExportImport, setShowExportImport] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
+  const appIntroAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Jouer le son d'intro quand le splash se termine
+  useEffect(() => {
+    if (!showSplash && appIntroAudioRef.current) {
+      appIntroAudioRef.current.volume = 1.0; // Volume maximum
+      appIntroAudioRef.current.play().catch(err => {
+        console.log('Audio intro bloqué:', err);
+      });
+    }
+  }, [showSplash]);
 
   if (showSplash) {
     return <SplashScreen onComplete={() => setShowSplash(false)} />;
@@ -17,6 +28,13 @@ function App() {
 
   return (
     <AppProvider>
+      {/* Audio d'intro de l'app - joue une fois au chargement */}
+      <audio
+        ref={appIntroAudioRef}
+        src="/acolyte-time/app-intro.mp3"
+        preload="auto"
+      />
+
       <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
         {/* Header */}
         <header className="sticky top-0 z-40 backdrop-blur-md bg-slate-900/80 border-b border-slate-700/50">
