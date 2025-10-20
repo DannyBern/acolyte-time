@@ -46,7 +46,7 @@ const TimeView: React.FC = () => {
       <div className={`rounded-2xl p-4 border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
-          : 'bg-slate-100/90 backdrop-blur-md border-slate-300 shadow-[0_8px_30px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.06)]'
+          : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="flex gap-2">
           {(['day', 'week', 'month', 'year'] as ViewMode[]).map(mode => (
@@ -73,7 +73,7 @@ const TimeView: React.FC = () => {
       <div className={`rounded-2xl p-4 border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
-          : 'bg-slate-100/90 backdrop-blur-md border-slate-300 shadow-[0_8px_30px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.06)]'
+          : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="flex items-center justify-between">
           <button
@@ -123,7 +123,7 @@ const TimeView: React.FC = () => {
       <div className={`rounded-2xl p-6 border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
-          : 'bg-slate-100/90 backdrop-blur-md border-slate-300 shadow-[0_8px_30px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.06)]'
+          : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="text-center mb-6">
           <div className={`text-4xl font-light mb-2 transition-colors ${
@@ -194,7 +194,7 @@ const TimeView: React.FC = () => {
         <div className={`rounded-2xl border transition-colors ${
           theme === 'dark'
             ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
-            : 'bg-slate-100/90 backdrop-blur-md border-slate-300 shadow-[0_8px_30px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.06)]'
+            : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
         }`}>
           <button
             onClick={() => setIsDistributionOpen(!isDistributionOpen)}

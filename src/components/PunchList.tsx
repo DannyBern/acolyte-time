@@ -62,7 +62,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
       <div className={`rounded-2xl p-6 border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
-          : 'bg-slate-100/90 backdrop-blur-md border-slate-300 shadow-[0_8px_30px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.06)]'
+          : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <h3 className={`text-lg font-semibold mb-4 uppercase tracking-wider transition-colors ${
           theme === 'dark' ? 'text-platinum-100' : 'text-gray-900'
