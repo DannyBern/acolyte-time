@@ -136,10 +136,10 @@ const PunchButton: React.FC = () => {
   };
 
   return (
-    <div className={`rounded-2xl p-6 shadow-elegant-xl border transition-colors ${
+    <div className={`rounded-2xl p-6 border transition-colors ${
       theme === 'dark'
-        ? 'bg-slate-850 border-slate-700/50'
-        : 'bg-slate-50/70 backdrop-blur-sm border-slate-200/80'
+        ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
+        : 'bg-slate-100/90 backdrop-blur-md border-slate-300 shadow-[0_8px_30px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.06)]'
     }`}>
       {/* Audio elements - invisible mais prêts à jouer */}
       <audio
@@ -183,10 +183,10 @@ const PunchButton: React.FC = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="What are you working on?"
-              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
+              className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all shadow-sm ${
                 theme === 'dark'
                   ? 'bg-slate-900 border-slate-700 text-platinum-100 placeholder-platinum-600 focus:ring-gold-500/50 focus:border-gold-500'
-                  : 'bg-white/80 border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/50 focus:border-blue-400'
+                  : 'bg-white border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/50 focus:border-blue-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
               }`}
               autoFocus
             />
@@ -224,10 +224,10 @@ const PunchButton: React.FC = () => {
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Add your thoughts, context, or reflections..."
                   rows={3}
-                  className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-1 transition-all resize-none text-sm leading-relaxed backdrop-blur-sm ${
+                  className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-1 transition-all resize-none text-sm leading-relaxed backdrop-blur-sm shadow-sm ${
                     theme === 'dark'
                       ? 'bg-slate-900/50 border-slate-700/50 text-platinum-100 placeholder-platinum-600/50 focus:ring-gold-500/30 focus:border-gold-500/30'
-                      : 'bg-white/70 border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/30 focus:border-blue-400'
+                      : 'bg-white border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/30 focus:border-blue-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
                   }`}
                   style={{
                     fontFamily: 'system-ui, -apple-system, sans-serif',

@@ -61,8 +61,8 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
 
       <div className={`rounded-2xl p-6 border transition-colors ${
         theme === 'dark'
-          ? 'bg-slate-850 border-slate-700/50'
-          : 'bg-slate-50/60 backdrop-blur-sm border-slate-200/80'
+          ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
+          : 'bg-slate-100/90 backdrop-blur-md border-slate-300 shadow-[0_8px_30px_rgba(0,0,0,0.08),0_2px_8px_rgba(0,0,0,0.06)]'
       }`}>
         <h3 className={`text-lg font-semibold mb-4 uppercase tracking-wider transition-colors ${
           theme === 'dark' ? 'text-platinum-100' : 'text-gray-900'
@@ -80,8 +80,8 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                 key={punch.id}
                 className={`rounded-lg p-4 border transition-all ${
                   theme === 'dark'
-                    ? 'bg-slate-900 border-slate-700/50 hover:border-slate-600'
-                    : 'bg-white/80 backdrop-blur-sm border-slate-200 hover:border-slate-300'
+                    ? 'bg-slate-900 border-slate-700/50 hover:border-slate-600 shadow-[0_4px_12px_rgba(0,0,0,0.1)]'
+                    : 'bg-white backdrop-blur-sm border-slate-200 hover:border-slate-300 shadow-[0_4px_12px_rgba(0,0,0,0.05),0_1px_4px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.08)]'
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
