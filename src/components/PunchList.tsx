@@ -13,8 +13,21 @@ interface PunchListProps {
 const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
   const { deletePunch } = useApp();
   const [editingPunch, setEditingPunch] = useState<Punch | null>(null);
+  const [expandedNotes, setExpandedNotes] = useState<Set<string>>(new Set());
 
   const tagMap = new Map(tags.map(t => [t.id, t]));
+
+  const toggleNotes = (punchId: string) => {
+    setExpandedNotes(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(punchId)) {
+        newSet.delete(punchId);
+      } else {
+        newSet.add(punchId);
+      }
+      return newSet;
+    });
+  };
 
   // Sort by date descending
   const sortedPunches = [...punches].sort((a, b) =>
@@ -83,6 +96,24 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                     <div className="text-gold-400 font-semibold">
                       {formatDuration(duration)}
                     </div>
+
+                    {/* Notes Button - Only show if notes exist */}
+                    {punch.notes && punch.notes.trim() && (
+                      <button
+                        onClick={() => toggleNotes(punch.id)}
+                        className="mt-2 text-sm text-platinum-400 hover:text-gold-400 transition-colors flex items-center gap-1"
+                      >
+                        <span>{expandedNotes.has(punch.id) ? '▼' : '▶'}</span>
+                        <span>Notes</span>
+                      </button>
+                    )}
+
+                    {/* Expanded Notes */}
+                    {expandedNotes.has(punch.id) && punch.notes && (
+                      <div className="mt-3 p-3 bg-slate-800/50 border border-slate-700/50 rounded-lg text-sm text-platinum-300 leading-relaxed whitespace-pre-wrap">
+                        {punch.notes}
+                      </div>
+                    )}
                   </div>
 
                   {/* Actions */}

@@ -225,7 +225,7 @@ const PunchButton: React.FC = () => {
           className={`px-12 py-4 font-semibold text-lg transition-all duration-150 active:translate-y-1 active:brightness-90 shadow-lg ${
             activePunch
               ? 'bg-red-900/60 hover:bg-red-900/70 text-white'
-              : 'bg-olive-600/50 hover:bg-olive-600/60 text-white'
+              : 'bg-emerald-700/70 hover:bg-emerald-700/80 text-white'
           }`}
         >
           {activePunch ? 'Stop' : showForm ? 'Punch In' : 'Start Timer'}
