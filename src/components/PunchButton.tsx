@@ -139,7 +139,7 @@ const PunchButton: React.FC = () => {
     <div className={`rounded-2xl p-6 shadow-elegant-xl border transition-colors ${
       theme === 'dark'
         ? 'bg-slate-850 border-slate-700/50'
-        : 'bg-white border-gray-200'
+        : 'bg-slate-50/70 backdrop-blur-sm border-slate-200/80'
     }`}>
       {/* Audio elements - invisible mais prêts à jouer */}
       <audio
@@ -186,7 +186,7 @@ const PunchButton: React.FC = () => {
               className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all ${
                 theme === 'dark'
                   ? 'bg-slate-900 border-slate-700 text-platinum-100 placeholder-platinum-600 focus:ring-gold-500/50 focus:border-gold-500'
-                  : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 focus:ring-amber-500/50 focus:border-amber-500'
+                  : 'bg-white/80 border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/50 focus:border-blue-400'
               }`}
               autoFocus
             />
@@ -227,7 +227,7 @@ const PunchButton: React.FC = () => {
                   className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-1 transition-all resize-none text-sm leading-relaxed backdrop-blur-sm ${
                     theme === 'dark'
                       ? 'bg-slate-900/50 border-slate-700/50 text-platinum-100 placeholder-platinum-600/50 focus:ring-gold-500/30 focus:border-gold-500/30'
-                      : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-500 focus:ring-amber-500/30 focus:border-amber-500/30'
+                      : 'bg-white/70 border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/30 focus:border-blue-400'
                   }`}
                   style={{
                     fontFamily: 'system-ui, -apple-system, sans-serif',

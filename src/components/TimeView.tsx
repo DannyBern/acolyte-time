@@ -46,7 +46,7 @@ const TimeView: React.FC = () => {
       <div className={`rounded-2xl p-4 border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50'
-          : 'bg-white border-gray-200'
+          : 'bg-slate-50/60 backdrop-blur-sm border-slate-200/80'
       }`}>
         <div className="flex gap-2">
           {(['day', 'week', 'month', 'year'] as ViewMode[]).map(mode => (
@@ -57,10 +57,10 @@ const TimeView: React.FC = () => {
                 viewMode === mode
                   ? theme === 'dark'
                     ? 'bg-gold-600 text-slate-900 shadow-elegant'
-                    : 'bg-amber-500 text-white shadow-lg'
+                    : 'bg-blue-500 text-white shadow-lg'
                   : theme === 'dark'
                   ? 'bg-slate-700 text-platinum-400 hover:bg-slate-600'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  : 'bg-white/70 text-slate-600 hover:bg-white border border-slate-200'
               }`}
             >
               {mode}
@@ -73,7 +73,7 @@ const TimeView: React.FC = () => {
       <div className={`rounded-2xl p-4 border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50'
-          : 'bg-white border-gray-200'
+          : 'bg-slate-50/60 backdrop-blur-sm border-slate-200/80'
       }`}>
         <div className="flex items-center justify-between">
           <button
@@ -123,7 +123,7 @@ const TimeView: React.FC = () => {
       <div className={`rounded-2xl p-6 border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50'
-          : 'bg-white border-gray-200'
+          : 'bg-slate-50/60 backdrop-blur-sm border-slate-200/80'
       }`}>
         <div className="text-center mb-6">
           <div className={`text-4xl font-light mb-2 transition-colors ${
@@ -194,7 +194,7 @@ const TimeView: React.FC = () => {
         <div className={`rounded-2xl border transition-colors ${
           theme === 'dark'
             ? 'bg-slate-850 border-slate-700/50'
-            : 'bg-white border-gray-200'
+            : 'bg-slate-50/60 backdrop-blur-sm border-slate-200/80'
         }`}>
           <button
             onClick={() => setIsDistributionOpen(!isDistributionOpen)}
