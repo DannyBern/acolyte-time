@@ -16,7 +16,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
   const { theme } = useTheme();
   const [editingPunch, setEditingPunch] = useState<Punch | null>(null);
   const [expandedNotes, setExpandedNotes] = useState<Set<string>>(new Set());
-  const [isEntriesOpen, setIsEntriesOpen] = useState(true);
+  const [isEntriesOpen, setIsEntriesOpen] = useState(false);
   const deleteAudioRef = React.useRef<HTMLAudioElement | null>(null);
 
   const tagMap = new Map(tags.map(t => [t.id, t]));
