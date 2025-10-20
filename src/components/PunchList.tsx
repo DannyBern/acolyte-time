@@ -16,6 +16,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
   const { theme } = useTheme();
   const [editingPunch, setEditingPunch] = useState<Punch | null>(null);
   const [expandedNotes, setExpandedNotes] = useState<Set<string>>(new Set());
+  const [isEntriesOpen, setIsEntriesOpen] = useState(true);
   const deleteAudioRef = React.useRef<HTMLAudioElement | null>(null);
 
   const tagMap = new Map(tags.map(t => [t.id, t]));
@@ -59,18 +60,27 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
         preload="auto"
       />
 
-      <div className={`rounded-2xl p-6 border transition-colors ${
+      <div className={`rounded-2xl border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
-        <h3 className={`text-lg font-semibold mb-4 uppercase tracking-wider transition-colors ${
-          theme === 'dark' ? 'text-platinum-100' : 'text-gray-900'
-        }`}>
-          Time Entries
-        </h3>
+        <button
+          onClick={() => setIsEntriesOpen(!isEntriesOpen)}
+          className={`w-full flex items-center justify-between text-lg font-semibold uppercase tracking-wider transition-colors py-4 px-6 rounded-t-2xl ${
+            theme === 'dark'
+              ? 'text-platinum-100 hover:text-gold-400 hover:bg-slate-700/50'
+              : 'text-gray-900 hover:text-amber-600 hover:bg-gray-50'
+          }`}
+        >
+          <span>Time Entries</span>
+          <span className="text-xl transition-transform duration-300" style={{ transform: isEntriesOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+            ▼
+          </span>
+        </button>
 
-        <div className="space-y-3">
+        {isEntriesOpen && (
+          <div className="px-6 pb-6 pt-2 space-y-3">
           {sortedPunches.map(punch => {
             const duration = calculatePunchDuration(punch);
             const startDate = new Date(punch.startTime);
@@ -192,7 +202,8 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
               </div>
             );
           })}
-        </div>
+          </div>
+        )}
       </div>
 
       {editingPunch && (
