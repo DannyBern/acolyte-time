@@ -217,25 +217,38 @@ const PunchButton: React.FC = () => {
         </div>
       )}
 
-      {/* Action Buttons */}
-      <div className="flex gap-3">
+      {/* Action Buttons - 3D Image Buttons */}
+      <div className="flex gap-6 justify-center items-center">
+        {/* Main Punch/Stop Button - 3D with Press Animation */}
         <button
           onClick={handlePunchToggle}
-          className={`flex-1 py-4 px-6 rounded-xl font-semibold text-lg tracking-wide transition-all transform hover:scale-[1.02] active:scale-[0.98] ${
-            activePunch
-              ? 'bg-gradient-to-r from-slate-700 to-slate-600 hover:from-slate-600 hover:to-slate-500 text-platinum-200 shadow-elegant-lg border border-slate-500/30'
-              : showForm
-              ? 'bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 text-slate-900 shadow-elegant-lg'
-              : 'bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-500 hover:to-slate-600 text-platinum-100 shadow-elegant-lg border border-gold-500/20'
-          }`}
+          className="relative group transition-all duration-150 active:translate-y-1"
+          style={{
+            filter: 'drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3))',
+          }}
         >
-          {activePunch ? '⏹ Stop' : showForm ? '▶ Start' : '▶ Punch In'}
+          <div
+            className="w-64 h-32 bg-contain bg-center bg-no-repeat transition-all duration-150 group-active:brightness-90"
+            style={{
+              backgroundImage: 'url(/acolyte-time/buttons.png)',
+              backgroundPosition: activePunch ? '75% 50%' : '25% 50%',
+              backgroundSize: '200% 100%',
+              imageRendering: '-webkit-optimize-contrast',
+            }}
+          />
+          {/* Subtle glow on hover */}
+          <div
+            className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 blur-xl ${
+              activePunch ? 'bg-rose-400' : 'bg-emerald-400'
+            }`}
+            style={{ zIndex: -1 }}
+          />
         </button>
 
         {showForm && !activePunch && (
           <button
             onClick={handleCancel}
-            className="px-6 py-4 rounded-xl font-semibold text-platinum-300 bg-slate-700 hover:bg-slate-600 transition-all"
+            className="px-6 py-3 rounded-xl font-semibold text-sm text-platinum-300 bg-slate-700/50 hover:bg-slate-600/50 transition-all border border-slate-600/50"
           >
             Cancel
           </button>
