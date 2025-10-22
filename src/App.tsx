@@ -11,28 +11,44 @@ function AppContent() {
   const { theme, toggleTheme } = useTheme();
   const [showTagManager, setShowTagManager] = useState(false);
   const [showExportImport, setShowExportImport] = useState(false);
-  const [showSplash, setShowSplash] = useState(true);
+
+  // Vérifier si l'utilisateur a déjà vu l'intro
+  const [showSplash, setShowSplash] = useState(() => {
+    const hasSeenIntro = localStorage.getItem('acolyte-time-intro-seen');
+    return hasSeenIntro !== 'true'; // Montrer seulement si pas encore vu
+  });
+
   const appIntroAudioRef = useRef<HTMLAudioElement | null>(null);
 
   // Jouer le son d'intro quand le splash se termine (avec délai de 1 seconde)
   useEffect(() => {
     if (!showSplash && appIntroAudioRef.current) {
-      // Attendre 1 seconde pour s'assurer que l'audio joue complètement
-      const delayTimer = setTimeout(() => {
-        if (appIntroAudioRef.current) {
-          appIntroAudioRef.current.volume = 1.0; // Volume maximum
-          appIntroAudioRef.current.play().catch(err => {
-            console.log('Audio intro bloqué:', err);
-          });
-        }
-      }, 1000);
+      // Vérifier si c'est la première fois (pas de localStorage)
+      const hasSeenIntro = localStorage.getItem('acolyte-time-intro-seen');
 
-      return () => clearTimeout(delayTimer);
+      // Jouer l'audio seulement si c'est la première fois
+      if (hasSeenIntro !== 'true') {
+        // Attendre 1 seconde pour s'assurer que l'audio joue complètement
+        const delayTimer = setTimeout(() => {
+          if (appIntroAudioRef.current) {
+            appIntroAudioRef.current.volume = 1.0; // Volume maximum
+            appIntroAudioRef.current.play().catch(err => {
+              console.log('Audio intro bloqué:', err);
+            });
+          }
+        }, 1000);
+
+        return () => clearTimeout(delayTimer);
+      }
     }
   }, [showSplash]);
 
   if (showSplash) {
-    return <SplashScreen onComplete={() => setShowSplash(false)} />;
+    return <SplashScreen onComplete={() => {
+      // Marquer l'intro comme vue dans localStorage
+      localStorage.setItem('acolyte-time-intro-seen', 'true');
+      setShowSplash(false);
+    }} />;
   }
 
   return (
