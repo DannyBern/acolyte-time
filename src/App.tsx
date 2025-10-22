@@ -12,10 +12,10 @@ function AppContent() {
   const [showTagManager, setShowTagManager] = useState(false);
   const [showExportImport, setShowExportImport] = useState(false);
 
-  // Vérifier si l'utilisateur a déjà vu l'intro
+  // Vérifier si l'utilisateur a déjà vu l'intro dans cette session
   const [showSplash, setShowSplash] = useState(() => {
-    const hasSeenIntro = localStorage.getItem('acolyte-time-intro-seen');
-    return hasSeenIntro !== 'true'; // Montrer seulement si pas encore vu
+    const hasSeenIntro = sessionStorage.getItem('acolyte-time-intro-seen');
+    return hasSeenIntro !== 'true'; // Montrer seulement si pas encore vu dans cette session
   });
 
   const appIntroAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -23,10 +23,10 @@ function AppContent() {
   // Jouer le son d'intro quand le splash se termine (avec délai de 1 seconde)
   useEffect(() => {
     if (!showSplash && appIntroAudioRef.current) {
-      // Vérifier si c'est la première fois (pas de localStorage)
-      const hasSeenIntro = localStorage.getItem('acolyte-time-intro-seen');
+      // Vérifier si c'est la première fois dans cette session
+      const hasSeenIntro = sessionStorage.getItem('acolyte-time-intro-seen');
 
-      // Jouer l'audio seulement si c'est la première fois
+      // Jouer l'audio seulement si c'est la première fois dans cette session
       if (hasSeenIntro !== 'true') {
         // Attendre 1 seconde pour s'assurer que l'audio joue complètement
         const delayTimer = setTimeout(() => {
@@ -45,8 +45,8 @@ function AppContent() {
 
   if (showSplash) {
     return <SplashScreen onComplete={() => {
-      // Marquer l'intro comme vue dans localStorage
-      localStorage.setItem('acolyte-time-intro-seen', 'true');
+      // Marquer l'intro comme vue dans sessionStorage (réinitialise à chaque nouvelle session)
+      sessionStorage.setItem('acolyte-time-intro-seen', 'true');
       setShowSplash(false);
     }} />;
   }
