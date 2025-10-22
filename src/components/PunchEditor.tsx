@@ -36,11 +36,12 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
       const [startHours, startMinutes] = startTimeStr.split(':').map(Number);
       const [endHours, endMinutes] = endTimeStr.split(':').map(Number);
 
-      const newStartDate = new Date(startDateStr);
-      newStartDate.setHours(startHours, startMinutes, 0, 0);
+      // Parse date strings correctly to avoid timezone issues
+      const [startYear, startMonth, startDay] = startDateStr.split('-').map(Number);
+      const newStartDate = new Date(startYear, startMonth - 1, startDay, startHours, startMinutes, 0, 0);
 
-      const newEndDate = new Date(endDateStr);
-      newEndDate.setHours(endHours, endMinutes, 0, 0);
+      const [endYear, endMonth, endDay] = endDateStr.split('-').map(Number);
+      const newEndDate = new Date(endYear, endMonth - 1, endDay, endHours, endMinutes, 0, 0);
 
       if (newEndDate <= newStartDate) {
         alert('End time must be after start time');
@@ -48,7 +49,6 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
       }
 
       updatePunch(punch.id, {
-        id: punch.id,
         startTime: newStartDate.toISOString(),
         endTime: newEndDate.toISOString(),
         description,
