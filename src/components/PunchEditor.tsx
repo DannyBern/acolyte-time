@@ -48,6 +48,7 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
       }
 
       updatePunch(punch.id, {
+        id: punch.id,
         startTime: newStartDate.toISOString(),
         endTime: newEndDate.toISOString(),
         description,
