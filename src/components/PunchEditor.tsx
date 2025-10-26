@@ -18,6 +18,7 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
   const [description, setDescription] = useState(punch.description);
   const [selectedTags, setSelectedTags] = useState(punch.tags);
   const [notes, setNotes] = useState(punch.notes || '');
+  const [keepActive, setKeepActive] = useState(punch.endTime === null); // Si le punch est actif, garder actif par défaut
   const [startDateStr, setStartDateStr] = useState(
     startDate.toISOString().split('T')[0]
   );
@@ -34,23 +35,30 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
   const handleSave = () => {
     try {
       const [startHours, startMinutes] = startTimeStr.split(':').map(Number);
-      const [endHours, endMinutes] = endTimeStr.split(':').map(Number);
 
       // Parse date strings correctly to avoid timezone issues
       const [startYear, startMonth, startDay] = startDateStr.split('-').map(Number);
       const newStartDate = new Date(startYear, startMonth - 1, startDay, startHours, startMinutes, 0, 0);
 
-      const [endYear, endMonth, endDay] = endDateStr.split('-').map(Number);
-      const newEndDate = new Date(endYear, endMonth - 1, endDay, endHours, endMinutes, 0, 0);
+      let newEndTime: string | null = null;
 
-      if (newEndDate <= newStartDate) {
-        alert('End time must be after start time');
-        return;
+      // Si on ne garde pas actif, calculer l'heure de fin
+      if (!keepActive) {
+        const [endHours, endMinutes] = endTimeStr.split(':').map(Number);
+        const [endYear, endMonth, endDay] = endDateStr.split('-').map(Number);
+        const newEndDate = new Date(endYear, endMonth - 1, endDay, endHours, endMinutes, 0, 0);
+
+        if (newEndDate <= newStartDate) {
+          alert('End time must be after start time');
+          return;
+        }
+
+        newEndTime = newEndDate.toISOString();
       }
 
       updatePunch(punch.id, {
         startTime: newStartDate.toISOString(),
-        endTime: newEndDate.toISOString(),
+        endTime: newEndTime,
         description,
         tags: selectedTags,
         notes,
@@ -117,28 +125,46 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
             </div>
           </div>
 
+          {/* Keep Active Checkbox - Shown only if punch was originally active */}
+          {punch.endTime === null && (
+            <div className="flex items-center gap-3 p-3 bg-slate-900/50 rounded-lg border border-slate-700/50">
+              <input
+                type="checkbox"
+                id="keepActive"
+                checked={keepActive}
+                onChange={(e) => setKeepActive(e.target.checked)}
+                className="w-5 h-5 rounded border-slate-600 text-gold-600 focus:ring-2 focus:ring-gold-500/50 bg-slate-800"
+              />
+              <label htmlFor="keepActive" className="text-sm font-medium text-platinum-300 cursor-pointer flex-1">
+                ⏱ Keep punch active (don't set end time)
+              </label>
+            </div>
+          )}
+
           {/* End Date/Time */}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="block text-sm font-medium text-platinum-300 mb-2">
-                End Date
+                End Date {keepActive && <span className="text-xs text-platinum-500">(disabled - punch active)</span>}
               </label>
               <input
                 type="date"
                 value={endDateStr}
                 onChange={(e) => setEndDateStr(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-platinum-100 focus:outline-none focus:ring-2 focus:ring-gold-500/50"
+                disabled={keepActive}
+                className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-platinum-100 focus:outline-none focus:ring-2 focus:ring-gold-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-platinum-300 mb-2">
-                End Time
+                End Time {keepActive && <span className="text-xs text-platinum-500">(disabled - punch active)</span>}
               </label>
               <input
                 type="time"
                 value={endTimeStr}
                 onChange={(e) => setEndTimeStr(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-platinum-100 focus:outline-none focus:ring-2 focus:ring-gold-500/50"
+                disabled={keepActive}
+                className="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg text-platinum-100 focus:outline-none focus:ring-2 focus:ring-gold-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
           </div>
