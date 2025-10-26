@@ -99,8 +99,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     // Only update activePunch if the edited punch is the currently active one
     if (activePunch?.id === id) {
-      // If endTime is being set and the punch had no endTime before (was active), set activePunch to null
-      if (updates.endTime !== undefined && activePunch.endTime === null) {
+      // If endTime is being set to a non-null value and the punch had no endTime before (was active), set activePunch to null
+      if (updates.endTime !== undefined && updates.endTime !== null && activePunch.endTime === null) {
         setActivePunch(null);
       } else {
         // Update activePunch with the changes
