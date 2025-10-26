@@ -63,6 +63,8 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
       <div className={`rounded-2xl border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
+          : theme === 'zen'
+          ? 'bg-white/90 backdrop-blur-md border-emerald-200/60 shadow-[0_8px_30px_rgba(16,185,129,0.08),0_2px_8px_rgba(16,185,129,0.04)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <button
@@ -70,6 +72,8 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
           className={`w-full flex items-center justify-between text-lg font-semibold uppercase tracking-wider transition-colors py-4 px-6 rounded-t-2xl ${
             theme === 'dark'
               ? 'text-platinum-100 hover:text-gold-400 hover:bg-slate-700/50'
+              : theme === 'zen'
+              ? 'text-teal-900 hover:text-emerald-600 hover:bg-emerald-50/50'
               : 'text-gray-900 hover:text-amber-600 hover:bg-gray-50'
           }`}
         >
@@ -91,6 +95,8 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                 className={`rounded-lg p-4 border transition-all ${
                   theme === 'dark'
                     ? 'bg-slate-900 border-slate-700/50 hover:border-slate-600 shadow-[0_4px_12px_rgba(0,0,0,0.1)]'
+                    : theme === 'zen'
+                    ? 'bg-white/80 backdrop-blur-sm border-emerald-200/50 hover:border-emerald-300 shadow-[0_4px_12px_rgba(16,185,129,0.06),0_1px_4px_rgba(16,185,129,0.03)] hover:shadow-[0_6px_16px_rgba(16,185,129,0.08)]'
                     : 'bg-white backdrop-blur-sm border-slate-200 hover:border-slate-300 shadow-[0_4px_12px_rgba(0,0,0,0.05),0_1px_4px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.08)]'
                 }`}
               >
@@ -99,12 +105,20 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                     {/* Date & Time */}
                     <div className="flex items-center gap-3 mb-2">
                       <span className={`text-sm font-medium transition-colors ${
-                        theme === 'dark' ? 'text-platinum-400' : 'text-gray-700'
+                        theme === 'dark'
+                          ? 'text-platinum-400'
+                          : theme === 'zen'
+                          ? 'text-teal-700'
+                          : 'text-gray-700'
                       }`}>
                         {formatDate(startDate)}
                       </span>
                       <span className={`text-sm transition-colors ${
-                        theme === 'dark' ? 'text-platinum-500' : 'text-gray-600'
+                        theme === 'dark'
+                          ? 'text-platinum-500'
+                          : theme === 'zen'
+                          ? 'text-teal-600/70'
+                          : 'text-gray-600'
                       }`}>
                         {formatTime(punch.startTime)} -{' '}
                         {punch.endTime ? formatTime(punch.endTime) : 'Active'}
@@ -114,7 +128,11 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                     {/* Description */}
                     {punch.description && (
                       <div className={`mb-2 transition-colors ${
-                        theme === 'dark' ? 'text-platinum-100' : 'text-gray-900'
+                        theme === 'dark'
+                          ? 'text-platinum-100'
+                          : theme === 'zen'
+                          ? 'text-teal-900'
+                          : 'text-gray-900'
                       }`}>
                         {punch.description}
                       </div>
@@ -143,7 +161,11 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
 
                     {/* Duration */}
                     <div className={`font-semibold transition-colors ${
-                      theme === 'dark' ? 'text-gold-400' : 'text-amber-600'
+                      theme === 'dark'
+                        ? 'text-gold-400'
+                        : theme === 'zen'
+                        ? 'text-emerald-600'
+                        : 'text-amber-600'
                     }`}>
                       {formatDuration(duration)}
                     </div>
@@ -155,6 +177,8 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                         className={`mt-2 text-sm transition-colors flex items-center gap-1 ${
                           theme === 'dark'
                             ? 'text-platinum-400 hover:text-gold-400'
+                            : theme === 'zen'
+                            ? 'text-teal-600 hover:text-emerald-600'
                             : 'text-gray-600 hover:text-amber-600'
                         }`}
                       >
@@ -168,6 +192,8 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                       <div className={`mt-3 p-3 border rounded-lg text-sm leading-relaxed whitespace-pre-wrap transition-colors ${
                         theme === 'dark'
                           ? 'bg-slate-800/50 border-slate-700/50 text-platinum-300'
+                          : theme === 'zen'
+                          ? 'bg-emerald-50/50 border-emerald-200 text-teal-900'
                           : 'bg-white border-gray-300 text-gray-700'
                       }`}>
                         {punch.notes}
@@ -182,6 +208,8 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                       className={`px-3 py-1 text-sm rounded transition-colors ${
                         theme === 'dark'
                           ? 'text-platinum-400 hover:text-platinum-100 hover:bg-slate-700'
+                          : theme === 'zen'
+                          ? 'text-teal-600 hover:text-teal-900 hover:bg-emerald-100'
                           : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                       }`}
                     >
@@ -192,6 +220,8 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                       className={`px-3 py-1 text-sm rounded transition-colors ${
                         theme === 'dark'
                           ? 'text-red-400 hover:text-red-300 hover:bg-red-900/20'
+                          : theme === 'zen'
+                          ? 'text-rose-600 hover:text-rose-700 hover:bg-rose-50'
                           : 'text-red-600 hover:text-red-700 hover:bg-red-50'
                       }`}
                     >

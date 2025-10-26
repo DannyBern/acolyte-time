@@ -46,6 +46,8 @@ const TimeView: React.FC = () => {
       <div className={`rounded-2xl p-4 border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
+          : theme === 'zen'
+          ? 'bg-white/90 backdrop-blur-md border-emerald-200/60 shadow-[0_8px_30px_rgba(16,185,129,0.08),0_2px_8px_rgba(16,185,129,0.04)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="flex gap-2">
@@ -57,9 +59,13 @@ const TimeView: React.FC = () => {
                 viewMode === mode
                   ? theme === 'dark'
                     ? 'bg-gold-600 text-slate-900 shadow-elegant'
+                    : theme === 'zen'
+                    ? 'bg-emerald-500 text-white shadow-lg'
                     : 'bg-blue-500 text-white shadow-lg'
                   : theme === 'dark'
                   ? 'bg-slate-700 text-platinum-400 hover:bg-slate-600'
+                  : theme === 'zen'
+                  ? 'bg-teal-50 text-teal-700 hover:bg-emerald-100 border border-emerald-200'
                   : 'bg-white/70 text-slate-600 hover:bg-white border border-slate-200'
               }`}
             >
@@ -73,6 +79,8 @@ const TimeView: React.FC = () => {
       <div className={`rounded-2xl p-4 border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
+          : theme === 'zen'
+          ? 'bg-white/90 backdrop-blur-md border-emerald-200/60 shadow-[0_8px_30px_rgba(16,185,129,0.08),0_2px_8px_rgba(16,185,129,0.04)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="flex items-center justify-between">
@@ -81,6 +89,8 @@ const TimeView: React.FC = () => {
             className={`px-4 py-2 rounded-lg transition-all ${
               theme === 'dark'
                 ? 'text-platinum-300 hover:text-platinum-100 hover:bg-slate-700'
+                : theme === 'zen'
+                ? 'text-teal-700 hover:text-teal-900 hover:bg-emerald-100/50'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
@@ -89,7 +99,11 @@ const TimeView: React.FC = () => {
 
           <div className="text-center flex-1">
             <div className={`text-lg font-semibold transition-colors ${
-              theme === 'dark' ? 'text-platinum-100' : 'text-gray-900'
+              theme === 'dark'
+                ? 'text-platinum-100'
+                : theme === 'zen'
+                ? 'text-teal-900'
+                : 'text-gray-900'
             }`}>
               {formatDateRange(dateRange, viewMode)}
             </div>
@@ -100,6 +114,8 @@ const TimeView: React.FC = () => {
             className={`px-4 py-2 rounded-lg transition-all ${
               theme === 'dark'
                 ? 'text-platinum-300 hover:text-platinum-100 hover:bg-slate-700'
+                : theme === 'zen'
+                ? 'text-teal-700 hover:text-teal-900 hover:bg-emerald-100/50'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
@@ -112,6 +128,8 @@ const TimeView: React.FC = () => {
           className={`mt-3 w-full py-2 text-sm rounded-lg transition-all ${
             theme === 'dark'
               ? 'text-gold-400 hover:text-gold-300 hover:bg-slate-700'
+              : theme === 'zen'
+              ? 'text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50'
               : 'text-amber-600 hover:text-amber-700 hover:bg-amber-50'
           }`}
         >
@@ -123,16 +141,26 @@ const TimeView: React.FC = () => {
       <div className={`rounded-2xl p-6 border transition-colors ${
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
+          : theme === 'zen'
+          ? 'bg-white/90 backdrop-blur-md border-emerald-200/60 shadow-[0_8px_30px_rgba(16,185,129,0.08),0_2px_8px_rgba(16,185,129,0.04)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="text-center mb-6">
           <div className={`text-4xl font-light mb-2 transition-colors ${
-            theme === 'dark' ? 'text-gold-400' : 'text-amber-600'
+            theme === 'dark'
+              ? 'text-gold-400'
+              : theme === 'zen'
+              ? 'text-teal-600'
+              : 'text-amber-600'
           }`}>
             {formatDuration(stats.totalMinutes)}
           </div>
           <div className={`text-sm uppercase tracking-widest transition-colors ${
-            theme === 'dark' ? 'text-platinum-400' : 'text-gray-600'
+            theme === 'dark'
+              ? 'text-platinum-400'
+              : theme === 'zen'
+              ? 'text-teal-700/70'
+              : 'text-gray-600'
           }`}>
             Total Time
           </div>
@@ -142,7 +170,11 @@ const TimeView: React.FC = () => {
         {stats.tagDistribution.length > 0 && (
           <div className="space-y-3">
             <div className={`text-sm font-medium uppercase tracking-wider mb-3 transition-colors ${
-              theme === 'dark' ? 'text-platinum-300' : 'text-gray-700'
+              theme === 'dark'
+                ? 'text-platinum-300'
+                : theme === 'zen'
+                ? 'text-teal-700'
+                : 'text-gray-700'
             }`}>
               Time by Tag
             </div>
@@ -155,17 +187,29 @@ const TimeView: React.FC = () => {
                       style={{ backgroundColor: item.tagColor }}
                     />
                     <span className={`transition-colors ${
-                      theme === 'dark' ? 'text-platinum-200' : 'text-gray-800'
+                      theme === 'dark'
+                        ? 'text-platinum-200'
+                        : theme === 'zen'
+                        ? 'text-teal-900'
+                        : 'text-gray-800'
                     }`}>{item.tagName}</span>
                   </div>
                   <span className={`font-mono transition-colors ${
-                    theme === 'dark' ? 'text-platinum-400' : 'text-gray-600'
+                    theme === 'dark'
+                      ? 'text-platinum-400'
+                      : theme === 'zen'
+                      ? 'text-teal-700/70'
+                      : 'text-gray-600'
                   }`}>
                     {formatDuration(item.minutes)} ({item.percentage.toFixed(1)}%)
                   </span>
                 </div>
                 <div className={`h-2 rounded-full overflow-hidden transition-colors ${
-                  theme === 'dark' ? 'bg-slate-700' : 'bg-gray-200'
+                  theme === 'dark'
+                    ? 'bg-slate-700'
+                    : theme === 'zen'
+                    ? 'bg-emerald-100/50'
+                    : 'bg-gray-200'
                 }`}>
                   <div
                     className="h-full rounded-full transition-all duration-500"
@@ -182,7 +226,11 @@ const TimeView: React.FC = () => {
 
         {stats.totalMinutes === 0 && (
           <div className={`text-center py-8 transition-colors ${
-            theme === 'dark' ? 'text-platinum-500' : 'text-gray-500'
+            theme === 'dark'
+              ? 'text-platinum-500'
+              : theme === 'zen'
+              ? 'text-teal-600/60'
+              : 'text-gray-500'
           }`}>
             No time entries for this period
           </div>
@@ -194,6 +242,8 @@ const TimeView: React.FC = () => {
         <div className={`rounded-2xl border transition-colors ${
           theme === 'dark'
             ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
+            : theme === 'zen'
+            ? 'bg-white/90 backdrop-blur-md border-emerald-200/60 shadow-[0_8px_30px_rgba(16,185,129,0.08),0_2px_8px_rgba(16,185,129,0.04)]'
             : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
         }`}>
           <button
@@ -201,6 +251,8 @@ const TimeView: React.FC = () => {
             className={`w-full flex items-center justify-between text-lg font-semibold uppercase tracking-wider transition-colors py-4 px-6 rounded-t-2xl ${
               theme === 'dark'
                 ? 'text-platinum-100 hover:text-gold-400 hover:bg-slate-700/50'
+                : theme === 'zen'
+                ? 'text-teal-900 hover:text-emerald-600 hover:bg-emerald-50/50'
                 : 'text-gray-900 hover:text-amber-600 hover:bg-gray-50'
             }`}
           >

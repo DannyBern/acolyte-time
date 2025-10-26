@@ -167,6 +167,8 @@ const PunchButton: React.FC = () => {
     <div className={`rounded-2xl p-6 border transition-colors ${
       theme === 'dark'
         ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
+        : theme === 'zen'
+        ? 'bg-white/90 backdrop-blur-md border-emerald-200/60 shadow-[0_8px_30px_rgba(16,185,129,0.08),0_2px_8px_rgba(16,185,129,0.04)]'
         : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
     }`}>
       {/* Audio elements - invisible mais prêts à jouer */}
@@ -185,12 +187,20 @@ const PunchButton: React.FC = () => {
       {activePunch && (
         <div className="mb-6 text-center animate-fade-in">
           <div className={`text-5xl font-light tracking-wider mb-2 transition-colors ${
-            theme === 'dark' ? 'text-gold-400' : 'text-amber-600'
+            theme === 'dark'
+              ? 'text-gold-400'
+              : theme === 'zen'
+              ? 'text-teal-600'
+              : 'text-amber-600'
           }`}>
             {formatDurationWithSeconds(elapsedSeconds)}
           </div>
           <div className={`text-sm uppercase tracking-widest transition-colors ${
-            theme === 'dark' ? 'text-platinum-400' : 'text-gray-600'
+            theme === 'dark'
+              ? 'text-platinum-400'
+              : theme === 'zen'
+              ? 'text-teal-700/70'
+              : 'text-gray-600'
           }`}>
             Time Elapsed
           </div>
@@ -202,7 +212,11 @@ const PunchButton: React.FC = () => {
         <div className="space-y-4 mb-6 animate-slide-down">
           <div>
             <label className={`block text-sm font-medium mb-2 transition-colors ${
-              theme === 'dark' ? 'text-platinum-300' : 'text-gray-700'
+              theme === 'dark'
+                ? 'text-platinum-300'
+                : theme === 'zen'
+                ? 'text-teal-700'
+                : 'text-gray-700'
             }`}>
               Description
             </label>
@@ -214,6 +228,8 @@ const PunchButton: React.FC = () => {
               className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all shadow-sm ${
                 theme === 'dark'
                   ? 'bg-slate-900 border-slate-700 text-platinum-100 placeholder-platinum-600 focus:ring-gold-500/50 focus:border-gold-500'
+                  : theme === 'zen'
+                  ? 'bg-white border-emerald-200 text-teal-900 placeholder-teal-600/50 focus:ring-emerald-400/40 focus:border-emerald-400 shadow-[0_2px_8px_rgba(16,185,129,0.06)]'
                   : 'bg-white border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/50 focus:border-blue-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
               }`}
               autoFocus
@@ -222,7 +238,11 @@ const PunchButton: React.FC = () => {
 
           <div>
             <label className={`block text-sm font-medium mb-2 transition-colors ${
-              theme === 'dark' ? 'text-platinum-300' : 'text-gray-700'
+              theme === 'dark'
+                ? 'text-platinum-300'
+                : theme === 'zen'
+                ? 'text-teal-700'
+                : 'text-gray-700'
             }`}>
               Tag
             </label>
@@ -238,12 +258,20 @@ const PunchButton: React.FC = () => {
           {activePunch && (
             <div className="pt-2">
               <label className={`block text-sm font-medium mb-3 flex items-center gap-2 transition-colors ${
-                theme === 'dark' ? 'text-platinum-300' : 'text-gray-700'
+                theme === 'dark'
+                  ? 'text-platinum-300'
+                  : theme === 'zen'
+                  ? 'text-teal-700'
+                  : 'text-gray-700'
               }`}>
                 <span className="text-base">📝</span>
                 <span>Notes</span>
                 <span className={`text-xs font-normal ml-auto transition-colors ${
-                  theme === 'dark' ? 'text-platinum-500' : 'text-gray-500'
+                  theme === 'dark'
+                    ? 'text-platinum-500'
+                    : theme === 'zen'
+                    ? 'text-teal-600/60'
+                    : 'text-gray-500'
                 }`}>Optional</span>
               </label>
               <div className="relative">
@@ -255,6 +283,8 @@ const PunchButton: React.FC = () => {
                   className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-1 transition-all resize-none text-sm leading-relaxed backdrop-blur-sm shadow-sm ${
                     theme === 'dark'
                       ? 'bg-slate-900/50 border-slate-700/50 text-platinum-100 placeholder-platinum-600/50 focus:ring-gold-500/30 focus:border-gold-500/30'
+                      : theme === 'zen'
+                      ? 'bg-white/80 border-emerald-200 text-teal-900 placeholder-teal-600/40 focus:ring-emerald-400/30 focus:border-emerald-400 shadow-[0_2px_8px_rgba(16,185,129,0.06)]'
                       : 'bg-white border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/30 focus:border-blue-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
                   }`}
                   style={{
@@ -263,7 +293,11 @@ const PunchButton: React.FC = () => {
                   }}
                 />
                 <div className={`absolute bottom-3 right-3 text-xs pointer-events-none transition-colors ${
-                  theme === 'dark' ? 'text-platinum-600' : 'text-gray-500'
+                  theme === 'dark'
+                    ? 'text-platinum-600'
+                    : theme === 'zen'
+                    ? 'text-teal-600/50'
+                    : 'text-gray-500'
                 }`}>
                   {notes.length} chars
                 </div>
@@ -294,6 +328,16 @@ const PunchButton: React.FC = () => {
               shadow-[0_6px_0_0_rgba(0,0,0,0.3),0_8px_20px_rgba(0,0,0,0.2)]
               hover:shadow-[0_6px_0_0_rgba(0,0,0,0.3),0_10px_25px_rgba(0,0,0,0.3)]
               active:shadow-[0_2px_0_0_rgba(0,0,0,0.3),0_3px_8px_rgba(0,0,0,0.2)]
+            ` : theme === 'zen' ? `
+              ${activePunch
+                ? 'bg-rose-500/70 hover:bg-rose-500/80 text-white border-rose-400'
+                : showForm
+                ? 'bg-emerald-500/70 hover:bg-emerald-500/80 text-white border-emerald-400'
+                : 'bg-teal-500/70 hover:bg-teal-500/80 text-white border-teal-400'
+              }
+              shadow-[0_6px_0_0_rgba(16,185,129,0.2),0_8px_20px_rgba(16,185,129,0.15)]
+              hover:shadow-[0_6px_0_0_rgba(16,185,129,0.2),0_10px_25px_rgba(16,185,129,0.2)]
+              active:shadow-[0_2px_0_0_rgba(16,185,129,0.2),0_3px_8px_rgba(16,185,129,0.15)]
             ` : `
               ${activePunch
                 ? 'bg-red-600/60 hover:bg-red-600/70 text-white border-red-500'
@@ -327,6 +371,11 @@ const PunchButton: React.FC = () => {
                 shadow-[0_4px_0_0_rgba(0,0,0,0.2),0_6px_15px_rgba(0,0,0,0.15)]
                 hover:shadow-[0_4px_0_0_rgba(0,0,0,0.2),0_8px_18px_rgba(0,0,0,0.2)]
                 active:shadow-[0_1px_0_0_rgba(0,0,0,0.2),0_2px_5px_rgba(0,0,0,0.15)]
+              ` : theme === 'zen' ? `
+                text-teal-700 bg-emerald-100/60 hover:bg-emerald-200/60 border-emerald-300
+                shadow-[0_4px_0_0_rgba(16,185,129,0.15),0_6px_15px_rgba(16,185,129,0.1)]
+                hover:shadow-[0_4px_0_0_rgba(16,185,129,0.15),0_8px_18px_rgba(16,185,129,0.15)]
+                active:shadow-[0_1px_0_0_rgba(16,185,129,0.15),0_2px_5px_rgba(16,185,129,0.1)]
               ` : `
                 text-gray-700 bg-gray-200/60 hover:bg-gray-300/60 border-gray-400
                 shadow-[0_4px_0_0_rgba(0,0,0,0.1),0_6px_15px_rgba(0,0,0,0.08)]
@@ -349,12 +398,24 @@ const PunchButton: React.FC = () => {
         <div
           className={`w-2 h-2 rounded-full ${
             activePunch
-              ? theme === 'dark' ? 'bg-gold-500' : 'bg-amber-500'
-              : theme === 'dark' ? 'bg-slate-600' : 'bg-gray-400'
+              ? theme === 'dark'
+                ? 'bg-gold-500'
+                : theme === 'zen'
+                ? 'bg-emerald-500'
+                : 'bg-amber-500'
+              : theme === 'dark'
+              ? 'bg-slate-600'
+              : theme === 'zen'
+              ? 'bg-teal-300'
+              : 'bg-gray-400'
           } ${activePunch ? 'animate-pulse-subtle' : ''}`}
         />
         <span className={`transition-colors ${
-          theme === 'dark' ? 'text-platinum-500' : 'text-gray-600'
+          theme === 'dark'
+            ? 'text-platinum-500'
+            : theme === 'zen'
+            ? 'text-teal-600/70'
+            : 'text-gray-600'
         }`}>
           {activePunch ? 'Active' : 'Idle'}
         </span>
