@@ -34,11 +34,17 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
 
   const handleSave = () => {
     try {
+      console.log('=== PUNCH EDITOR - SAVING ===');
+      console.log('Original punch:', punch);
+      console.log('keepActive:', keepActive);
+
       const [startHours, startMinutes] = startTimeStr.split(':').map(Number);
 
       // Parse date strings correctly to avoid timezone issues
       const [startYear, startMonth, startDay] = startDateStr.split('-').map(Number);
       const newStartDate = new Date(startYear, startMonth - 1, startDay, startHours, startMinutes, 0, 0);
+
+      console.log('New start date:', newStartDate.toISOString());
 
       let newEndTime: string | null = null;
 
@@ -54,18 +60,27 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
         }
 
         newEndTime = newEndDate.toISOString();
+        console.log('New end date:', newEndTime);
+      } else {
+        console.log('Keeping punch active (endTime: null)');
       }
 
-      updatePunch(punch.id, {
+      const updates = {
         startTime: newStartDate.toISOString(),
         endTime: newEndTime,
         description,
         tags: selectedTags,
         notes,
-      });
+      };
 
+      console.log('Updates to send:', updates);
+
+      updatePunch(punch.id, updates);
+
+      console.log('updatePunch called, closing editor');
       onClose();
     } catch (error) {
+      console.error('Error in handleSave:', error);
       alert('Invalid date/time format');
     }
   };

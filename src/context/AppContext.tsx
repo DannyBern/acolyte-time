@@ -90,22 +90,40 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, []);
 
   const updatePunch = useCallback((id: string, updates: Partial<Punch>) => {
-    setData(prev => ({
-      ...prev,
-      punches: prev.punches.map(p =>
+    console.log('=== APP CONTEXT - updatePunch ===');
+    console.log('Punch ID:', id);
+    console.log('Updates:', updates);
+
+    setData(prev => {
+      const punchToUpdate = prev.punches.find(p => p.id === id);
+      console.log('Punch before update:', punchToUpdate);
+
+      const updatedPunches = prev.punches.map(p =>
         p.id === id ? { ...p, ...updates } : p
-      ),
-    }));
+      );
+
+      const updatedPunch = updatedPunches.find(p => p.id === id);
+      console.log('Punch after update:', updatedPunch);
+      console.log('Total punches:', updatedPunches.length);
+
+      return {
+        ...prev,
+        punches: updatedPunches,
+      };
+    });
 
     // Update activePunch using prev callback to avoid stale closure
     setActivePunch(prev => {
       // Only update if the edited punch is the currently active one
       if (prev?.id === id) {
+        console.log('Updating activePunch because it matches ID');
         // If endTime is being set to a non-null value and the punch had no endTime before (was active), clear activePunch
         if (updates.endTime !== undefined && updates.endTime !== null && prev.endTime === null) {
+          console.log('Clearing activePunch (punch ended)');
           return null;
         }
         // Otherwise update activePunch with the changes
+        console.log('Updating activePunch with new data');
         return { ...prev, ...updates };
       }
       return prev;
