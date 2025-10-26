@@ -47,7 +47,7 @@ const TimeView: React.FC = () => {
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : theme === 'zen'
-          ? 'bg-white/90 backdrop-blur-md border-emerald-200/60 shadow-[0_8px_30px_rgba(16,185,129,0.08),0_2px_8px_rgba(16,185,129,0.04)]'
+          ? 'bg-[#E6DDD4]/90 backdrop-blur-md border-[#D2C0A7] shadow-[0_8px_30px_rgba(210,192,167,0.15),0_2px_8px_rgba(210,192,167,0.08)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="flex gap-2">
@@ -60,12 +60,12 @@ const TimeView: React.FC = () => {
                   ? theme === 'dark'
                     ? 'bg-gold-600 text-slate-900 shadow-elegant'
                     : theme === 'zen'
-                    ? 'bg-emerald-500 text-white shadow-lg'
+                    ? 'bg-[#889D35] text-white shadow-lg'
                     : 'bg-blue-500 text-white shadow-lg'
                   : theme === 'dark'
                   ? 'bg-slate-700 text-platinum-400 hover:bg-slate-600'
                   : theme === 'zen'
-                  ? 'bg-teal-50 text-teal-700 hover:bg-emerald-100 border border-emerald-200'
+                  ? 'bg-white/60 text-[#564635] hover:bg-[#D2C0A7]/40 border border-[#D2C0A7]'
                   : 'bg-white/70 text-slate-600 hover:bg-white border border-slate-200'
               }`}
             >
@@ -80,7 +80,7 @@ const TimeView: React.FC = () => {
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : theme === 'zen'
-          ? 'bg-white/90 backdrop-blur-md border-emerald-200/60 shadow-[0_8px_30px_rgba(16,185,129,0.08),0_2px_8px_rgba(16,185,129,0.04)]'
+          ? 'bg-[#E6DDD4]/90 backdrop-blur-md border-[#D2C0A7] shadow-[0_8px_30px_rgba(210,192,167,0.15),0_2px_8px_rgba(210,192,167,0.08)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="flex items-center justify-between">
@@ -90,7 +90,7 @@ const TimeView: React.FC = () => {
               theme === 'dark'
                 ? 'text-platinum-300 hover:text-platinum-100 hover:bg-slate-700'
                 : theme === 'zen'
-                ? 'text-teal-700 hover:text-teal-900 hover:bg-emerald-100/50'
+                ? 'text-[#564635] hover:text-[#889D35] hover:bg-[#D2C0A7]/40'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
@@ -102,7 +102,7 @@ const TimeView: React.FC = () => {
               theme === 'dark'
                 ? 'text-platinum-100'
                 : theme === 'zen'
-                ? 'text-teal-900'
+                ? 'text-[#564635]'
                 : 'text-gray-900'
             }`}>
               {formatDateRange(dateRange, viewMode)}
@@ -115,7 +115,7 @@ const TimeView: React.FC = () => {
               theme === 'dark'
                 ? 'text-platinum-300 hover:text-platinum-100 hover:bg-slate-700'
                 : theme === 'zen'
-                ? 'text-teal-700 hover:text-teal-900 hover:bg-emerald-100/50'
+                ? 'text-[#564635] hover:text-[#889D35] hover:bg-[#D2C0A7]/40'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
@@ -129,7 +129,7 @@ const TimeView: React.FC = () => {
             theme === 'dark'
               ? 'text-gold-400 hover:text-gold-300 hover:bg-slate-700'
               : theme === 'zen'
-              ? 'text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50'
+              ? 'text-[#889D35] hover:text-[#889D35] hover:bg-[#D2C0A7]/40'
               : 'text-amber-600 hover:text-amber-700 hover:bg-amber-50'
           }`}
         >
@@ -142,7 +142,7 @@ const TimeView: React.FC = () => {
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : theme === 'zen'
-          ? 'bg-white/90 backdrop-blur-md border-emerald-200/60 shadow-[0_8px_30px_rgba(16,185,129,0.08),0_2px_8px_rgba(16,185,129,0.04)]'
+          ? 'bg-[#E6DDD4]/90 backdrop-blur-md border-[#D2C0A7] shadow-[0_8px_30px_rgba(210,192,167,0.15),0_2px_8px_rgba(210,192,167,0.08)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="text-center mb-6">
@@ -150,7 +150,7 @@ const TimeView: React.FC = () => {
             theme === 'dark'
               ? 'text-gold-400'
               : theme === 'zen'
-              ? 'text-teal-600'
+              ? 'text-[#889D35]'
               : 'text-amber-600'
           }`}>
             {formatDuration(stats.totalMinutes)}
@@ -159,7 +159,7 @@ const TimeView: React.FC = () => {
             theme === 'dark'
               ? 'text-platinum-400'
               : theme === 'zen'
-              ? 'text-teal-700/70'
+              ? 'text-[#564635]/70'
               : 'text-gray-600'
           }`}>
             Total Time
@@ -173,7 +173,7 @@ const TimeView: React.FC = () => {
               theme === 'dark'
                 ? 'text-platinum-300'
                 : theme === 'zen'
-                ? 'text-teal-700'
+                ? 'text-[#564635]'
                 : 'text-gray-700'
             }`}>
               Time by Tag
@@ -190,7 +190,7 @@ const TimeView: React.FC = () => {
                       theme === 'dark'
                         ? 'text-platinum-200'
                         : theme === 'zen'
-                        ? 'text-teal-900'
+                        ? 'text-[#564635]'
                         : 'text-gray-800'
                     }`}>{item.tagName}</span>
                   </div>
@@ -198,7 +198,7 @@ const TimeView: React.FC = () => {
                     theme === 'dark'
                       ? 'text-platinum-400'
                       : theme === 'zen'
-                      ? 'text-teal-700/70'
+                      ? 'text-[#564635]/70'
                       : 'text-gray-600'
                   }`}>
                     {formatDuration(item.minutes)} ({item.percentage.toFixed(1)}%)
@@ -208,7 +208,7 @@ const TimeView: React.FC = () => {
                   theme === 'dark'
                     ? 'bg-slate-700'
                     : theme === 'zen'
-                    ? 'bg-emerald-100/50'
+                    ? 'bg-[#D2C0A7]/40'
                     : 'bg-gray-200'
                 }`}>
                   <div
@@ -229,7 +229,7 @@ const TimeView: React.FC = () => {
             theme === 'dark'
               ? 'text-platinum-500'
               : theme === 'zen'
-              ? 'text-teal-600/60'
+              ? 'text-[#564635]/60'
               : 'text-gray-500'
           }`}>
             No time entries for this period
@@ -243,7 +243,7 @@ const TimeView: React.FC = () => {
           theme === 'dark'
             ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
             : theme === 'zen'
-            ? 'bg-white/90 backdrop-blur-md border-emerald-200/60 shadow-[0_8px_30px_rgba(16,185,129,0.08),0_2px_8px_rgba(16,185,129,0.04)]'
+            ? 'bg-[#E6DDD4]/90 backdrop-blur-md border-[#D2C0A7] shadow-[0_8px_30px_rgba(210,192,167,0.15),0_2px_8px_rgba(210,192,167,0.08)]'
             : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
         }`}>
           <button
@@ -252,7 +252,7 @@ const TimeView: React.FC = () => {
               theme === 'dark'
                 ? 'text-platinum-100 hover:text-gold-400 hover:bg-slate-700/50'
                 : theme === 'zen'
-                ? 'text-teal-900 hover:text-emerald-600 hover:bg-emerald-50/50'
+                ? 'text-[#564635] hover:text-[#889D35] hover:bg-[#D2C0A7]/40'
                 : 'text-gray-900 hover:text-amber-600 hover:bg-gray-50'
             }`}
           >

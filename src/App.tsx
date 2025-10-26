@@ -64,7 +64,7 @@ function AppContent() {
         theme === 'dark'
           ? 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'
           : theme === 'zen'
-          ? 'bg-gradient-to-br from-emerald-50 via-teal-50 to-sky-50'
+          ? 'bg-gradient-to-br from-[#E6DDD4] via-[#D2C0A7] to-[#E6DDD4]'
           : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
       }`}>
         {/* Header */}
@@ -72,7 +72,7 @@ function AppContent() {
           theme === 'dark'
             ? 'bg-slate-900/80 border-slate-700/50'
             : theme === 'zen'
-            ? 'bg-teal-50/80 border-emerald-200/50'
+            ? 'bg-[#E6DDD4]/80 border-[#D2C0A7]'
             : 'bg-white/80 border-gray-200'
         }`}>
           <div className="max-w-4xl mx-auto px-4 py-4">
@@ -93,7 +93,7 @@ function AppContent() {
                     theme === 'dark'
                       ? 'text-platinum-300 hover:text-platinum-100 hover:bg-slate-700'
                       : theme === 'zen'
-                      ? 'text-teal-700 hover:text-teal-900 hover:bg-emerald-100/50'
+                      ? 'text-[#564635] hover:text-[#889D35] hover:bg-[#D2C0A7]/40'
                       : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                   }`}
                   aria-label="Manage Tags"
@@ -106,7 +106,7 @@ function AppContent() {
                     theme === 'dark'
                       ? 'text-platinum-300 hover:text-platinum-100 hover:bg-slate-700'
                       : theme === 'zen'
-                      ? 'text-teal-700 hover:text-teal-900 hover:bg-emerald-100/50'
+                      ? 'text-[#564635] hover:text-[#889D35] hover:bg-[#D2C0A7]/40'
                       : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                   }`}
                   aria-label="Export/Import"
@@ -119,7 +119,7 @@ function AppContent() {
                     theme === 'dark'
                       ? 'text-platinum-300 hover:text-platinum-100 hover:bg-slate-700'
                       : theme === 'zen'
-                      ? 'text-emerald-700 hover:text-emerald-900 hover:bg-emerald-50'
+                      ? 'text-[#564635] hover:text-[#889D35] hover:bg-[#D2C0A7]/40'
                       : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                   }`}
                   aria-label="Toggle Theme"
@@ -150,7 +150,7 @@ function AppContent() {
             theme === 'dark'
               ? 'text-platinum-600'
               : theme === 'zen'
-              ? 'text-teal-600/70'
+              ? 'text-[#564635]/60'
               : 'text-gray-500'
           }`}>
             Made with precision for professionals
