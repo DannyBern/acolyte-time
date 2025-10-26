@@ -16,6 +16,9 @@ const PunchButton: React.FC = () => {
   const isUpdatingNotesRef = useRef(false);
   const punchInAudioRef = useRef<HTMLAudioElement | null>(null);
   const stopAudioRef = useRef<HTMLAudioElement | null>(null);
+  const previousTagRef = useRef<string>('');
+  const autoRestartTimeoutRef = useRef<number | null>(null);
+  const isAutoRestartingRef = useRef(false);
 
   // Update elapsed time every second when active
   useEffect(() => {
@@ -37,29 +40,59 @@ const PunchButton: React.FC = () => {
         setNotes(activePunch.notes || '');
       }
       setElapsedSeconds(getSecondsSinceStart(activePunch.startTime));
+      // Initialize previousTagRef when punch becomes active
+      if (!isAutoRestartingRef.current) {
+        previousTagRef.current = activePunch.tags[0] || '';
+      }
     } else {
       setDescription('');
       setSelectedTags([]);
       setNotes('');
       setElapsedSeconds(0);
+      previousTagRef.current = '';
     }
   }, [activePunch]);
 
-  // Update active punch when description or tags change (without restarting)
+  // Auto-restart punch when TAG changes (but update description in-place)
   useEffect(() => {
-    if (activePunch && !isUpdatingNotesRef.current) {
-      // Check if description or tags have changed
+    if (activePunch && !isAutoRestartingRef.current) {
+      const currentTag = selectedTags[0] || '';
+      const hasTagChanged = currentTag !== previousTagRef.current && previousTagRef.current !== '';
       const hasDescriptionChanged = description !== activePunch.description;
-      const hasTagsChanged = JSON.stringify(selectedTags) !== JSON.stringify(activePunch.tags);
 
-      if (hasDescriptionChanged || hasTagsChanged) {
-        // Update the punch in place without stopping/restarting
-        updatePunch(activePunch.id, {
-          description,
-          tags: selectedTags,
-        });
+      // Clear any pending auto-restart
+      if (autoRestartTimeoutRef.current) {
+        clearTimeout(autoRestartTimeoutRef.current);
+      }
+
+      // Only restart if TAG changed (not description)
+      if (hasTagChanged && currentTag) {
+        // Debounce to avoid rapid changes during typing/selection
+        autoRestartTimeoutRef.current = setTimeout(() => {
+          isAutoRestartingRef.current = true;
+
+          // Stop current punch with old values
+          stopPunch(activePunch.description, [previousTagRef.current]);
+
+          // Start new punch with new tag after a small delay
+          setTimeout(() => {
+            startPunch(description, selectedTags, notes, true);
+            previousTagRef.current = currentTag;
+            isAutoRestartingRef.current = false;
+          }, 150);
+        }, 300); // 300ms debounce
+      }
+      // If only description changed, update in-place
+      else if (hasDescriptionChanged && !hasTagChanged) {
+        updatePunch(activePunch.id, { description });
       }
     }
+
+    return () => {
+      if (autoRestartTimeoutRef.current) {
+        clearTimeout(autoRestartTimeoutRef.current);
+      }
+    };
   }, [selectedTags, description, activePunch]);
 
   // Mettre à jour les notes avec debounce pour éviter le flickering
