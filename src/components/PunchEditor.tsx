@@ -15,36 +15,37 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
   const startDate = new Date(punch.startTime);
   const endDate = punch.endTime ? new Date(punch.endTime) : new Date();
 
+  // Helper function to format date for input type="date" in LOCAL timezone
+  const formatDateForInput = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  // Helper function to format time for input type="time" in LOCAL timezone
+  const formatTimeForInput = (date: Date): string => {
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
+
   const [description, setDescription] = useState(punch.description);
   const [selectedTags, setSelectedTags] = useState(punch.tags);
   const [notes, setNotes] = useState(punch.notes || '');
   const [keepActive, setKeepActive] = useState(punch.endTime === null); // Si le punch est actif, garder actif par défaut
-  const [startDateStr, setStartDateStr] = useState(
-    startDate.toISOString().split('T')[0]
-  );
-  const [startTimeStr, setStartTimeStr] = useState(
-    startDate.toTimeString().slice(0, 5)
-  );
-  const [endDateStr, setEndDateStr] = useState(
-    endDate.toISOString().split('T')[0]
-  );
-  const [endTimeStr, setEndTimeStr] = useState(
-    endDate.toTimeString().slice(0, 5)
-  );
+  const [startDateStr, setStartDateStr] = useState(formatDateForInput(startDate));
+  const [startTimeStr, setStartTimeStr] = useState(formatTimeForInput(startDate));
+  const [endDateStr, setEndDateStr] = useState(formatDateForInput(endDate));
+  const [endTimeStr, setEndTimeStr] = useState(formatTimeForInput(endDate));
 
   const handleSave = () => {
     try {
-      console.log('=== PUNCH EDITOR - SAVING ===');
-      console.log('Original punch:', punch);
-      console.log('keepActive:', keepActive);
-
       const [startHours, startMinutes] = startTimeStr.split(':').map(Number);
 
       // Parse date strings correctly to avoid timezone issues
       const [startYear, startMonth, startDay] = startDateStr.split('-').map(Number);
       const newStartDate = new Date(startYear, startMonth - 1, startDay, startHours, startMinutes, 0, 0);
-
-      console.log('New start date:', newStartDate.toISOString());
 
       let newEndTime: string | null = null;
 
@@ -60,27 +61,18 @@ const PunchEditor: React.FC<PunchEditorProps> = ({ punch, tags, onClose }) => {
         }
 
         newEndTime = newEndDate.toISOString();
-        console.log('New end date:', newEndTime);
-      } else {
-        console.log('Keeping punch active (endTime: null)');
       }
 
-      const updates = {
+      updatePunch(punch.id, {
         startTime: newStartDate.toISOString(),
         endTime: newEndTime,
         description,
         tags: selectedTags,
         notes,
-      };
+      });
 
-      console.log('Updates to send:', updates);
-
-      updatePunch(punch.id, updates);
-
-      console.log('updatePunch called, closing editor');
       onClose();
     } catch (error) {
-      console.error('Error in handleSave:', error);
       alert('Invalid date/time format');
     }
   };
