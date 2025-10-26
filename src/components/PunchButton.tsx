@@ -12,8 +12,6 @@ const PunchButton: React.FC = () => {
   const [notes, setNotes] = useState('');
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [showForm, setShowForm] = useState(false);
-  const [initialTag, setInitialTag] = useState<string>('');
-  const [initialDescription, setInitialDescription] = useState<string>('');
   const notesUpdateTimeoutRef = useRef<number | null>(null);
   const isUpdatingNotesRef = useRef(false);
   const punchInAudioRef = useRef<HTMLAudioElement | null>(null);
@@ -39,33 +37,30 @@ const PunchButton: React.FC = () => {
         setNotes(activePunch.notes || '');
       }
       setElapsedSeconds(getSecondsSinceStart(activePunch.startTime));
-      setInitialTag(activePunch.tags[0] || '');
-      setInitialDescription(activePunch.description);
     } else {
       setDescription('');
       setSelectedTags([]);
       setNotes('');
       setElapsedSeconds(0);
-      setInitialTag('');
-      setInitialDescription('');
     }
   }, [activePunch]);
 
-  // Auto-restart punch si tag ou description change
+  // Update active punch when description or tags change (without restarting)
   useEffect(() => {
-    if (activePunch && (selectedTags[0] !== initialTag || description !== initialDescription)) {
-      // Ne déclencher que si les valeurs sont différentes ET non vides
-      if ((selectedTags[0] && selectedTags[0] !== initialTag) ||
-          (description && description !== initialDescription)) {
-        // Stopper le punch actuel avec les anciennes valeurs
-        stopPunch(initialDescription, [initialTag]);
-        // Démarrer un nouveau punch avec les nouvelles valeurs (forceStart: true)
-        setTimeout(() => {
-          startPunch(description, selectedTags, notes, true);
-        }, 100);
+    if (activePunch && !isUpdatingNotesRef.current) {
+      // Check if description or tags have changed
+      const hasDescriptionChanged = description !== activePunch.description;
+      const hasTagsChanged = JSON.stringify(selectedTags) !== JSON.stringify(activePunch.tags);
+
+      if (hasDescriptionChanged || hasTagsChanged) {
+        // Update the punch in place without stopping/restarting
+        updatePunch(activePunch.id, {
+          description,
+          tags: selectedTags,
+        });
       }
     }
-  }, [selectedTags, description]);
+  }, [selectedTags, description, activePunch]);
 
   // Mettre à jour les notes avec debounce pour éviter le flickering
   useEffect(() => {
@@ -249,8 +244,7 @@ const PunchButton: React.FC = () => {
       <div className="space-y-4">
         {/* Main Punch/Stop Button - Full Width with Professional Press Animation */}
         <button
-          onMouseUp={handlePunchToggle}
-          onTouchEnd={handlePunchToggle}
+          onClick={handlePunchToggle}
           className={`
             relative w-full py-5 font-bold text-xl uppercase tracking-wide
             transition-all duration-150 ease-out

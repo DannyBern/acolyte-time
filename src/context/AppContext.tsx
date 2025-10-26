@@ -97,17 +97,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       ),
     }));
 
-    // Only update activePunch if the edited punch is the currently active one
-    if (activePunch?.id === id) {
-      // If endTime is being set to a non-null value and the punch had no endTime before (was active), set activePunch to null
-      if (updates.endTime !== undefined && updates.endTime !== null && activePunch.endTime === null) {
-        setActivePunch(null);
-      } else {
-        // Update activePunch with the changes
-        setActivePunch(prev => prev ? { ...prev, ...updates } : null);
+    // Update activePunch using prev callback to avoid stale closure
+    setActivePunch(prev => {
+      // Only update if the edited punch is the currently active one
+      if (prev?.id === id) {
+        // If endTime is being set to a non-null value and the punch had no endTime before (was active), clear activePunch
+        if (updates.endTime !== undefined && updates.endTime !== null && prev.endTime === null) {
+          return null;
+        }
+        // Otherwise update activePunch with the changes
+        return { ...prev, ...updates };
       }
-    }
-  }, [activePunch]);
+      return prev;
+    });
+  }, []);
 
   const deletePunch = useCallback((id: string) => {
     if (window.confirm('Are you sure you want to delete this punch?')) {
