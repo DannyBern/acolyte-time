@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Tag } from '../types';
+import { useTheme } from '../context/ThemeContext';
 
 interface TagSelectorProps {
   availableTags: Tag[];
@@ -14,6 +15,7 @@ const TagSelector: React.FC<TagSelectorProps> = ({
   onTagsChange,
   singleSelect = true, // Single tag par défaut
 }) => {
+  const { theme } = useTheme();
   const toggleTag = (tagId: string) => {
     if (singleSelect) {
       // Mode single: sélectionner uniquement ce tag
@@ -44,15 +46,24 @@ const TagSelector: React.FC<TagSelectorProps> = ({
             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all transform hover:scale-105 active:scale-95 ${
               isSelected
                 ? 'shadow-elegant'
+                : theme === 'zen'
+                ? 'bg-[#6b5545] hover:bg-[#7a6250] text-[#E6DDD4] border border-[#889D35]/40'
                 : 'bg-slate-700 hover:bg-slate-600 text-platinum-300 border border-slate-600'
             }`}
             style={
               isSelected
-                ? {
-                    backgroundColor: tag.color,
-                    color: '#fff',
-                    boxShadow: `0 4px 6px -1px ${tag.color}40`,
-                  }
+                ? theme === 'zen'
+                  ? {
+                      backgroundColor: 'rgba(136, 157, 53, 0.3)',
+                      color: '#E6DDD4',
+                      border: '1px solid rgba(136, 157, 53, 0.6)',
+                      boxShadow: '0 4px 6px -1px rgba(136, 157, 53, 0.4)',
+                    }
+                  : {
+                      backgroundColor: tag.color,
+                      color: '#fff',
+                      boxShadow: `0 4px 6px -1px ${tag.color}40`,
+                    }
                 : undefined
             }
           >

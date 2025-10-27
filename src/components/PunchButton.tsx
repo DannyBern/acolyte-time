@@ -330,7 +330,7 @@ const PunchButton: React.FC = () => {
               active:shadow-[0_2px_0_0_rgba(0,0,0,0.3),0_3px_8px_rgba(0,0,0,0.2)]
             ` : theme === 'zen' ? `
               ${activePunch
-                ? 'bg-[#564635]/90 hover:bg-[#564635] text-[#E6DDD4] border-[#564635]'
+                ? 'text-[#E6DDD4] border-[#889D35]/60'
                 : showForm
                 ? 'bg-[#889D35]/90 hover:bg-[#889D35] text-[#E6DDD4] border-[#889D35]'
                 : 'bg-[#889D35]/80 hover:bg-[#889D35]/90 text-[#E6DDD4] border-[#889D35]'
@@ -353,6 +353,9 @@ const PunchButton: React.FC = () => {
           style={{
             transform: 'translateZ(0)',
             willChange: 'transform, box-shadow',
+            ...(theme === 'zen' && activePunch ? {
+              backgroundImage: 'linear-gradient(135deg, rgba(136, 157, 53, 0.7) 0%, rgba(86, 70, 53, 0.7) 100%)',
+            } : {})
           }}
         >
           {activePunch ? 'Stop' : showForm ? 'Punch In' : 'Start Timer'}
