@@ -20,8 +20,8 @@ const FallingLeaves: React.FC = () => {
     duration: `${15 + Math.random() * 10}s`,
     // Different leaf colors from zen palette
     color: i % 4 === 0 ? '#889D35' : i % 4 === 1 ? '#D2C0A7' : i % 4 === 2 ? '#b8975a' : '#a08860',
-    // Varied sizes - 10x bigger (6x to 12x original size)
-    size: 6 + Math.random() * 6,
+    // Varied sizes - 60% of previous (3.6x to 7.2x original size)
+    size: 3.6 + Math.random() * 3.6,
   }));
 
   return (

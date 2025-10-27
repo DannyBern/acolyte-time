@@ -71,8 +71,10 @@ function AppContent() {
         {/* Falling leaves animation - Zen theme only */}
         <FallingLeaves />
 
-        {/* Header */}
-        <header className={`sticky top-0 z-40 backdrop-blur-md border-b transition-colors duration-300 ${
+        {/* Content wrapper with opacity for zen theme */}
+        <div className={theme === 'zen' ? 'opacity-50' : ''}>
+          {/* Header */}
+          <header className={`sticky top-0 z-40 backdrop-blur-md border-b transition-colors duration-300 ${
           theme === 'dark'
             ? 'bg-slate-900/80 border-slate-700/50'
             : theme === 'zen'
@@ -148,18 +150,19 @@ function AppContent() {
           </section>
         </main>
 
-        {/* Footer */}
-        <footer className="max-w-4xl mx-auto px-4 py-8 text-center">
-          <p className={`text-sm transition-colors ${
-            theme === 'dark'
-              ? 'text-platinum-600'
-              : theme === 'zen'
-              ? 'text-[#564635]/70'
-              : 'text-gray-500'
-          }`}>
-            Made with precision for professionals
-          </p>
-        </footer>
+          {/* Footer */}
+          <footer className="max-w-4xl mx-auto px-4 py-8 text-center">
+            <p className={`text-sm transition-colors ${
+              theme === 'dark'
+                ? 'text-platinum-600'
+                : theme === 'zen'
+                ? 'text-[#564635]/70'
+                : 'text-gray-500'
+            }`}>
+              Made with precision for professionals
+            </p>
+          </footer>
+        </div>
 
         {/* Modals */}
         {showTagManager && <TagManager onClose={() => setShowTagManager(false)} />}
