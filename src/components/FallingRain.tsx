@@ -9,19 +9,18 @@ const FallingRain: React.FC = () => {
     return null;
   }
 
-  // Create multiple raindrops with different animations
-  const raindrops = Array.from({ length: 30 }, (_, i) => ({
+  // Create water drops that slide down like on a window
+  const raindrops = Array.from({ length: 25 }, (_, i) => ({
     id: i,
     // Varied starting positions across the screen
-    left: `${Math.random() * 100}%`,
-    // Varied animation delays for natural effect
-    delay: `${Math.random() * 3}s`,
-    // Varied durations - rain falls faster than snow
-    duration: `${0.5 + Math.random() * 1}s`,
-    // Varied lengths
-    length: 40 + Math.random() * 40,
-    // Slight opacity variation
-    opacity: 0.3 + Math.random() * 0.4,
+    left: `${5 + Math.random() * 90}%`,
+    top: `${Math.random() * 30}%`,
+    // Varied animation delays
+    delay: `${Math.random() * 5}s`,
+    // Varied durations - slower sliding
+    duration: `${3 + Math.random() * 4}s`,
+    // Varied sizes
+    size: 0.6 + Math.random() * 1,
   }));
 
   return (
@@ -32,34 +31,53 @@ const FallingRain: React.FC = () => {
           className="raindrop"
           style={{
             left: drop.left,
+            top: drop.top,
             animationDelay: drop.delay,
             animationDuration: drop.duration,
-            '--start-left': drop.left,
-            '--drop-length': `${drop.length}px`,
-            opacity: drop.opacity,
+            transform: `scale(${drop.size})`,
           } as React.CSSProperties}
         >
-          {/* SVG raindrop - thin vertical line */}
+          {/* SVG water drop sliding down window */}
           <svg
-            width="2"
-            height={drop.length}
-            viewBox={`0 0 2 ${drop.length}`}
+            width="30"
+            height="80"
+            viewBox="0 0 30 80"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            style={{ filter: 'drop-shadow(0 2px 8px rgba(96, 165, 250, 0.6))' }}
           >
-            <line
-              x1="1"
-              y1="0"
-              x2="1"
-              y2={drop.length}
-              stroke="url(#rainGradient)"
-              strokeWidth="2"
-              strokeLinecap="round"
+            {/* Main water drop body with gradient */}
+            <ellipse
+              cx="15"
+              cy="15"
+              rx="12"
+              ry="15"
+              fill="url(#waterGradient)"
+              opacity="0.85"
+            />
+            {/* Trail effect */}
+            <path
+              d="M 10 15 Q 12 40, 13 65 Q 14 70, 15 75 Q 16 70, 17 65 Q 18 40, 20 15"
+              fill="url(#trailGradient)"
+              opacity="0.6"
+            />
+            {/* Highlight for 3D effect */}
+            <ellipse
+              cx="12"
+              cy="12"
+              rx="4"
+              ry="6"
+              fill="rgba(255, 255, 255, 0.6)"
             />
             <defs>
-              <linearGradient id="rainGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.8" />
-                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.4" />
+              <linearGradient id="waterGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.95" />
+                <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.85" />
+                <stop offset="100%" stopColor="#2563eb" stopOpacity="0.75" />
+              </linearGradient>
+              <linearGradient id="trailGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.1" />
               </linearGradient>
             </defs>
           </svg>
@@ -69,26 +87,32 @@ const FallingRain: React.FC = () => {
       <style>{`
         .raindrop {
           position: absolute;
-          top: -100px;
-          animation: rainfall linear infinite;
-          will-change: transform;
+          animation: slideDown ease-in infinite;
+          opacity: 0;
+          will-change: transform, opacity;
         }
 
-        /* Fast falling animation at 20° angle */
-        @keyframes rainfall {
+        /* Water drop sliding down window effect */
+        @keyframes slideDown {
           0% {
-            top: -100px;
-            left: var(--start-left);
+            transform: translateY(0) translateX(0) scale(var(--drop-scale, 1));
+            opacity: 0;
+          }
+          5% {
+            opacity: 0.9;
+          }
+          85% {
+            opacity: 0.9;
           }
           100% {
-            top: calc(100vh + 100px);
-            /* 20° angle: tan(20°) ≈ 0.364 */
-            left: calc(var(--start-left) + 36.4vh);
+            /* Slide down with slight diagonal movement */
+            transform: translateY(100vh) translateX(15vh) scale(var(--drop-scale, 1));
+            opacity: 0;
           }
         }
 
         .raindrop {
-          animation: rainfall var(--fall-duration, 1s) linear infinite;
+          animation: slideDown var(--fall-duration, 4s) ease-in infinite;
           animation-delay: var(--fall-delay, 0s);
         }
       `}</style>
