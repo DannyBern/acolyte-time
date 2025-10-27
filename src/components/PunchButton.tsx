@@ -329,12 +329,7 @@ const PunchButton: React.FC = () => {
               hover:shadow-[0_6px_0_0_rgba(0,0,0,0.3),0_10px_25px_rgba(0,0,0,0.3)]
               active:shadow-[0_2px_0_0_rgba(0,0,0,0.3),0_3px_8px_rgba(0,0,0,0.2)]
             ` : theme === 'zen' ? `
-              ${activePunch
-                ? 'text-[#E6DDD4] border-[#889D35]/60'
-                : showForm
-                ? 'bg-[#889D35]/90 hover:bg-[#889D35] text-[#E6DDD4] border-[#889D35]'
-                : 'bg-[#889D35]/80 hover:bg-[#889D35]/90 text-[#E6DDD4] border-[#889D35]'
-              }
+              text-[#E6DDD4] border-[#889D35]/60
               shadow-[0_10px_0_0_rgba(0,0,0,0.5),0_15px_40px_rgba(0,0,0,0.6),0_8px_20px_rgba(136,157,53,0.4),inset_0_2px_4px_rgba(230,221,212,0.15)]
               hover:shadow-[0_10px_0_0_rgba(0,0,0,0.5),0_18px_50px_rgba(0,0,0,0.7),0_10px_25px_rgba(136,157,53,0.5),inset_0_2px_4px_rgba(230,221,212,0.2)]
               active:shadow-[0_3px_0_0_rgba(0,0,0,0.5),0_5px_15px_rgba(0,0,0,0.6),0_3px_8px_rgba(136,157,53,0.4)]
@@ -353,7 +348,7 @@ const PunchButton: React.FC = () => {
           style={{
             transform: 'translateZ(0)',
             willChange: 'transform, box-shadow',
-            ...(theme === 'zen' && activePunch ? {
+            ...(theme === 'zen' ? {
               backgroundImage: 'linear-gradient(135deg, rgba(136, 157, 53, 0.7) 0%, rgba(86, 70, 53, 0.7) 100%)',
             } : {})
           }}
