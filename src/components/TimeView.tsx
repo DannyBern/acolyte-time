@@ -47,7 +47,7 @@ const TimeView: React.FC = () => {
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : theme === 'zen'
-          ? 'bg-[#564635]/40 backdrop-blur-md border-[#889D35]/30 shadow-[0_8px_30px_rgba(86,70,53,0.3),0_2px_8px_rgba(86,70,53,0.2)]'
+          ? 'bg-[#564635] backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="flex gap-2">
@@ -60,12 +60,12 @@ const TimeView: React.FC = () => {
                   ? theme === 'dark'
                     ? 'bg-gold-600 text-slate-900 shadow-elegant'
                     : theme === 'zen'
-                    ? 'bg-[#889D35] text-[#E6DDD4] shadow-lg'
+                    ? 'bg-[#889D35] text-[#E6DDD4] shadow-[0_8px_0_0_rgba(0,0,0,0.5),0_12px_35px_rgba(0,0,0,0.6),0_6px_18px_rgba(136,157,53,0.4),inset_0_2px_4px_rgba(230,221,212,0.15)]'
                     : 'bg-blue-500 text-white shadow-lg'
                   : theme === 'dark'
                   ? 'bg-slate-700 text-platinum-400 hover:bg-slate-600'
                   : theme === 'zen'
-                  ? 'bg-[#564635]/60 text-[#D2C0A7] hover:bg-[#564635]/80 border border-[#889D35]/30'
+                  ? 'bg-[#6b5545] text-[#D2C0A7] hover:bg-[#7a6250] border border-[#889D35]/30 shadow-[0_4px_0_0_rgba(0,0,0,0.4),0_8px_20px_rgba(0,0,0,0.5),0_4px_12px_rgba(136,157,53,0.3)] hover:shadow-[0_4px_0_0_rgba(0,0,0,0.4),0_10px_25px_rgba(0,0,0,0.6),0_5px_15px_rgba(136,157,53,0.35)]'
                   : 'bg-white/70 text-slate-600 hover:bg-white border border-slate-200'
               }`}
             >
@@ -80,7 +80,7 @@ const TimeView: React.FC = () => {
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : theme === 'zen'
-          ? 'bg-[#564635]/40 backdrop-blur-md border-[#889D35]/30 shadow-[0_8px_30px_rgba(86,70,53,0.3),0_2px_8px_rgba(86,70,53,0.2)]'
+          ? 'bg-[#564635] backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="flex items-center justify-between">
@@ -90,7 +90,7 @@ const TimeView: React.FC = () => {
               theme === 'dark'
                 ? 'text-platinum-300 hover:text-platinum-100 hover:bg-slate-700'
                 : theme === 'zen'
-                ? 'text-[#E6DDD4] hover:text-[#889D35] hover:bg-[#889D35]/20'
+                ? 'text-[#E6DDD4] hover:text-[#889D35] hover:bg-[#889D35]/20 shadow-[0_6px_0_0_rgba(0,0,0,0.4),0_10px_25px_rgba(0,0,0,0.5),0_6px_15px_rgba(136,157,53,0.3)] hover:shadow-[0_6px_0_0_rgba(0,0,0,0.4),0_12px_30px_rgba(0,0,0,0.6),0_8px_18px_rgba(136,157,53,0.35)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.4),0_4px_10px_rgba(0,0,0,0.5)]'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
@@ -115,7 +115,7 @@ const TimeView: React.FC = () => {
               theme === 'dark'
                 ? 'text-platinum-300 hover:text-platinum-100 hover:bg-slate-700'
                 : theme === 'zen'
-                ? 'text-[#E6DDD4] hover:text-[#889D35] hover:bg-[#889D35]/20'
+                ? 'text-[#E6DDD4] hover:text-[#889D35] hover:bg-[#889D35]/20 shadow-[0_6px_0_0_rgba(0,0,0,0.4),0_10px_25px_rgba(0,0,0,0.5),0_6px_15px_rgba(136,157,53,0.3)] hover:shadow-[0_6px_0_0_rgba(0,0,0,0.4),0_12px_30px_rgba(0,0,0,0.6),0_8px_18px_rgba(136,157,53,0.35)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.4),0_4px_10px_rgba(0,0,0,0.5)]'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
@@ -129,7 +129,7 @@ const TimeView: React.FC = () => {
             theme === 'dark'
               ? 'text-gold-400 hover:text-gold-300 hover:bg-slate-700'
               : theme === 'zen'
-              ? 'text-[#889D35] hover:text-[#889D35] hover:bg-[#889D35]/20'
+              ? 'text-[#889D35] hover:text-[#889D35] hover:bg-[#889D35]/20 shadow-[0_6px_0_0_rgba(0,0,0,0.4),0_10px_25px_rgba(0,0,0,0.5),0_6px_15px_rgba(136,157,53,0.3)] hover:shadow-[0_6px_0_0_rgba(0,0,0,0.4),0_12px_30px_rgba(0,0,0,0.6),0_8px_18px_rgba(136,157,53,0.35)] active:shadow-[0_2px_0_0_rgba(0,0,0,0.4),0_4px_10px_rgba(0,0,0,0.5)]'
               : 'text-amber-600 hover:text-amber-700 hover:bg-amber-50'
           }`}
         >
@@ -142,7 +142,7 @@ const TimeView: React.FC = () => {
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : theme === 'zen'
-          ? 'bg-[#564635]/40 backdrop-blur-md border-[#889D35]/30 shadow-[0_8px_30px_rgba(86,70,53,0.3),0_2px_8px_rgba(86,70,53,0.2)]'
+          ? 'bg-[#564635] backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="text-center mb-6">
@@ -208,7 +208,7 @@ const TimeView: React.FC = () => {
                   theme === 'dark'
                     ? 'bg-slate-700'
                     : theme === 'zen'
-                    ? 'bg-[#564635]/70'
+                    ? 'bg-[#6b5545]'
                     : 'bg-gray-200'
                 }`}>
                   <div
@@ -243,7 +243,7 @@ const TimeView: React.FC = () => {
           theme === 'dark'
             ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
             : theme === 'zen'
-            ? 'bg-[#564635]/40 backdrop-blur-md border-[#889D35]/30 shadow-[0_8px_30px_rgba(86,70,53,0.3),0_2px_8px_rgba(86,70,53,0.2)]'
+            ? 'bg-[#564635] backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
             : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
         }`}>
           <button

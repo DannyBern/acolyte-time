@@ -168,7 +168,7 @@ const PunchButton: React.FC = () => {
       theme === 'dark'
         ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
         : theme === 'zen'
-        ? 'bg-[#564635]/40 backdrop-blur-md border-[#889D35]/30 shadow-[0_8px_30px_rgba(86,70,53,0.3),0_2px_8px_rgba(86,70,53,0.2)]'
+        ? 'bg-[#564635] backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
         : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
     }`}>
       {/* Audio elements - invisible mais prêts à jouer */}
@@ -190,7 +190,7 @@ const PunchButton: React.FC = () => {
             theme === 'dark'
               ? 'text-gold-400'
               : theme === 'zen'
-              ? 'text-[#889D35]'
+              ? 'text-[#E6DDD4]'
               : 'text-amber-600'
           }`}>
             {formatDurationWithSeconds(elapsedSeconds)}
@@ -229,7 +229,7 @@ const PunchButton: React.FC = () => {
                 theme === 'dark'
                   ? 'bg-slate-900 border-slate-700 text-platinum-100 placeholder-platinum-600 focus:ring-gold-500/50 focus:border-gold-500'
                   : theme === 'zen'
-                  ? 'bg-[#564635]/60 border-[#889D35]/40 text-[#E6DDD4] placeholder-[#D2C0A7]/60 focus:ring-[#889D35]/60 focus:border-[#889D35] shadow-[0_2px_8px_rgba(136,157,53,0.15)]'
+                  ? 'bg-[#6b5545] border-[#889D35]/40 text-[#E6DDD4] placeholder-[#D2C0A7]/60 focus:ring-[#889D35]/60 focus:border-[#889D35] shadow-[inset_0_4px_8px_rgba(0,0,0,0.4),inset_0_2px_4px_rgba(0,0,0,0.3),0_1px_2px_rgba(136,157,53,0.2)]'
                   : 'bg-white border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/50 focus:border-blue-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
               }`}
               autoFocus
@@ -284,7 +284,7 @@ const PunchButton: React.FC = () => {
                     theme === 'dark'
                       ? 'bg-slate-900/50 border-slate-700/50 text-platinum-100 placeholder-platinum-600/50 focus:ring-gold-500/30 focus:border-gold-500/30'
                       : theme === 'zen'
-                      ? 'bg-[#564635]/50 border-[#889D35]/40 text-[#E6DDD4] placeholder-[#D2C0A7]/50 focus:ring-[#889D35]/50 focus:border-[#889D35] shadow-[0_2px_8px_rgba(136,157,53,0.15)]'
+                      ? 'bg-[#6b5545] border-[#889D35]/40 text-[#E6DDD4] placeholder-[#D2C0A7]/50 focus:ring-[#889D35]/50 focus:border-[#889D35] shadow-[inset_0_4px_8px_rgba(0,0,0,0.4),inset_0_2px_4px_rgba(0,0,0,0.3),0_1px_2px_rgba(136,157,53,0.2)]'
                       : 'bg-white border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/30 focus:border-blue-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
                   }`}
                   style={{
@@ -335,9 +335,9 @@ const PunchButton: React.FC = () => {
                 ? 'bg-[#889D35]/90 hover:bg-[#889D35] text-[#E6DDD4] border-[#889D35]'
                 : 'bg-[#889D35]/80 hover:bg-[#889D35]/90 text-[#E6DDD4] border-[#889D35]'
               }
-              shadow-[0_6px_0_0_rgba(136,157,53,0.4),0_8px_20px_rgba(136,157,53,0.3)]
-              hover:shadow-[0_6px_0_0_rgba(136,157,53,0.4),0_10px_25px_rgba(136,157,53,0.35)]
-              active:shadow-[0_2px_0_0_rgba(136,157,53,0.4),0_3px_8px_rgba(136,157,53,0.3)]
+              shadow-[0_10px_0_0_rgba(0,0,0,0.5),0_15px_40px_rgba(0,0,0,0.6),0_8px_20px_rgba(136,157,53,0.4),inset_0_2px_4px_rgba(230,221,212,0.15)]
+              hover:shadow-[0_10px_0_0_rgba(0,0,0,0.5),0_18px_50px_rgba(0,0,0,0.7),0_10px_25px_rgba(136,157,53,0.5),inset_0_2px_4px_rgba(230,221,212,0.2)]
+              active:shadow-[0_3px_0_0_rgba(0,0,0,0.5),0_5px_15px_rgba(0,0,0,0.6),0_3px_8px_rgba(136,157,53,0.4)]
             ` : `
               ${activePunch
                 ? 'bg-red-600/60 hover:bg-red-600/70 text-white border-red-500'
@@ -373,9 +373,9 @@ const PunchButton: React.FC = () => {
                 active:shadow-[0_1px_0_0_rgba(0,0,0,0.2),0_2px_5px_rgba(0,0,0,0.15)]
               ` : theme === 'zen' ? `
                 text-[#E6DDD4] bg-[#564635]/70 hover:bg-[#564635]/90 border-[#889D35]/40
-                shadow-[0_4px_0_0_rgba(136,157,53,0.3),0_6px_15px_rgba(136,157,53,0.2)]
-                hover:shadow-[0_4px_0_0_rgba(136,157,53,0.3),0_8px_18px_rgba(136,157,53,0.25)]
-                active:shadow-[0_1px_0_0_rgba(136,157,53,0.3),0_2px_5px_rgba(136,157,53,0.2)]
+                shadow-[0_6px_0_0_rgba(0,0,0,0.4),0_10px_25px_rgba(0,0,0,0.5),0_6px_15px_rgba(136,157,53,0.3),inset_0_1px_2px_rgba(230,221,212,0.1)]
+                hover:shadow-[0_6px_0_0_rgba(0,0,0,0.4),0_12px_30px_rgba(0,0,0,0.6),0_8px_18px_rgba(136,157,53,0.35),inset_0_1px_2px_rgba(230,221,212,0.15)]
+                active:shadow-[0_2px_0_0_rgba(0,0,0,0.4),0_4px_10px_rgba(0,0,0,0.5),0_2px_5px_rgba(136,157,53,0.3)]
               ` : `
                 text-gray-700 bg-gray-200/60 hover:bg-gray-300/60 border-gray-400
                 shadow-[0_4px_0_0_rgba(0,0,0,0.1),0_6px_15px_rgba(0,0,0,0.08)]

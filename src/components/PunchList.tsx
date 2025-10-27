@@ -64,7 +64,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : theme === 'zen'
-          ? 'bg-[#564635]/40 backdrop-blur-md border-[#889D35]/30 shadow-[0_8px_30px_rgba(86,70,53,0.3),0_2px_8px_rgba(86,70,53,0.2)]'
+          ? 'bg-[#564635] backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <button
@@ -96,7 +96,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                   theme === 'dark'
                     ? 'bg-slate-900 border-slate-700/50 hover:border-slate-600 shadow-[0_4px_12px_rgba(0,0,0,0.1)]'
                     : theme === 'zen'
-                    ? 'bg-[#564635]/60 backdrop-blur-sm border-[#889D35]/40 hover:border-[#889D35]/60 shadow-[0_4px_12px_rgba(136,157,53,0.2),0_1px_4px_rgba(136,157,53,0.1)] hover:shadow-[0_6px_16px_rgba(136,157,53,0.25)]'
+                    ? 'bg-[#6b5545] backdrop-blur-sm border-[#889D35]/60 hover:border-[#889D35]/80 shadow-[0_12px_40px_rgba(86,70,53,0.7),0_6px_20px_rgba(136,157,53,0.4),0_3px_10px_rgba(136,157,53,0.3),inset_0_1px_2px_rgba(230,221,212,0.15)] hover:shadow-[0_15px_50px_rgba(86,70,53,0.8),0_8px_25px_rgba(136,157,53,0.5),0_4px_12px_rgba(136,157,53,0.35)]'
                     : 'bg-white backdrop-blur-sm border-slate-200 hover:border-slate-300 shadow-[0_4px_12px_rgba(0,0,0,0.05),0_1px_4px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.08)]'
                 }`}
               >
@@ -193,7 +193,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                         theme === 'dark'
                           ? 'bg-slate-800/50 border-slate-700/50 text-platinum-300'
                           : theme === 'zen'
-                          ? 'bg-[#564635]/70 border-[#889D35]/40 text-[#E6DDD4]'
+                          ? 'bg-[#564635] border-[#889D35]/40 text-[#E6DDD4]'
                           : 'bg-white border-gray-300 text-gray-700'
                       }`}>
                         {punch.notes}
@@ -209,7 +209,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                         theme === 'dark'
                           ? 'text-platinum-400 hover:text-platinum-100 hover:bg-slate-700'
                           : theme === 'zen'
-                          ? 'text-[#E6DDD4] hover:text-[#889D35] hover:bg-[#889D35]/20'
+                          ? 'text-[#E6DDD4] hover:text-[#889D35] hover:bg-[#889D35]/20 shadow-[0_4px_0_0_rgba(0,0,0,0.4),0_8px_20px_rgba(0,0,0,0.5),0_4px_12px_rgba(136,157,53,0.3)] hover:shadow-[0_4px_0_0_rgba(0,0,0,0.4),0_10px_25px_rgba(0,0,0,0.6),0_5px_15px_rgba(136,157,53,0.35)] active:shadow-[0_1px_0_0_rgba(0,0,0,0.4),0_3px_8px_rgba(0,0,0,0.5)]'
                           : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                       }`}
                     >
@@ -221,7 +221,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                         theme === 'dark'
                           ? 'text-red-400 hover:text-red-300 hover:bg-red-900/20'
                           : theme === 'zen'
-                          ? 'text-[#E6DDD4] hover:text-[#E6DDD4] hover:bg-[#564635]/80'
+                          ? 'text-[#E6DDD4] hover:text-[#E6DDD4] hover:bg-[#564635] shadow-[0_4px_0_0_rgba(0,0,0,0.4),0_8px_20px_rgba(0,0,0,0.5),0_4px_12px_rgba(136,157,53,0.3)] hover:shadow-[0_4px_0_0_rgba(0,0,0,0.4),0_10px_25px_rgba(0,0,0,0.6),0_5px_15px_rgba(136,157,53,0.35)] active:shadow-[0_1px_0_0_rgba(0,0,0,0.4),0_3px_8px_rgba(0,0,0,0.5)]'
                           : 'text-red-600 hover:text-red-700 hover:bg-red-50'
                       }`}
                     >
