@@ -20,8 +20,8 @@ const FallingLeaves: React.FC = () => {
     duration: `${15 + Math.random() * 10}s`,
     // Different leaf colors from zen palette
     color: i % 4 === 0 ? '#889D35' : i % 4 === 1 ? '#D2C0A7' : i % 4 === 2 ? '#b8975a' : '#a08860',
-    // Varied sizes
-    size: 0.6 + Math.random() * 0.6,
+    // Varied sizes - 10x bigger (6x to 12x original size)
+    size: 6 + Math.random() * 6,
   }));
 
   return (
@@ -35,35 +35,51 @@ const FallingLeaves: React.FC = () => {
             animationDelay: leaf.delay,
             animationDuration: leaf.duration,
             '--leaf-color': leaf.color,
+            '--start-left': leaf.left,
             transform: `scale(${leaf.size})`,
           } as React.CSSProperties}
         >
-          {/* SVG leaf shape */}
+          {/* High-resolution SVG leaf shape */}
           <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
+            width="200"
+            height="200"
+            viewBox="0 0 200 200"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }}
+            style={{ filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.15))' }}
           >
-            {/* Organic leaf shape */}
+            {/* Main leaf shape - detailed and organic */}
             <path
-              d="M10 2C10 2 6 6 6 10C6 14 10 18 10 18C10 18 14 14 14 10C14 6 10 2 10 2Z"
+              d="M100 20C100 20 60 60 60 100C60 140 100 180 100 180C100 180 140 140 140 100C140 60 100 20 100 20Z"
               fill="var(--leaf-color)"
-              opacity="0.85"
+              opacity="0.9"
             />
+            {/* Center vein */}
             <path
-              d="M10 2C10 2 8 6 8 10C8 14 10 18 10 18"
-              stroke="rgba(86, 70, 53, 0.3)"
-              strokeWidth="0.5"
+              d="M100 20C100 20 80 60 80 100C80 140 100 180 100 180"
+              stroke="rgba(86, 70, 53, 0.4)"
+              strokeWidth="2"
               strokeLinecap="round"
             />
-            {/* Add some detail lines */}
+            {/* Detail veins - left side */}
             <path
-              d="M10 6L8 8M10 10L7 11M10 14L8 15"
-              stroke="rgba(86, 70, 53, 0.2)"
-              strokeWidth="0.5"
+              d="M100 50L70 70M100 80L65 95M100 110L70 120M100 140L75 155"
+              stroke="rgba(86, 70, 53, 0.25)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            {/* Detail veins - right side */}
+            <path
+              d="M100 50L130 70M100 80L135 95M100 110L130 120M100 140L125 155"
+              stroke="rgba(86, 70, 53, 0.25)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            {/* Highlight for depth */}
+            <path
+              d="M100 30C100 30 75 65 75 100C75 125 90 160 95 170"
+              stroke="rgba(255, 255, 255, 0.15)"
+              strokeWidth="2"
               strokeLinecap="round"
             />
           </svg>
@@ -79,20 +95,23 @@ const FallingLeaves: React.FC = () => {
           opacity: 0;
         }
 
-        /* Falling animation */
+        /* Falling animation with 20° angle */
         @keyframes fall {
           0% {
-            top: -30px;
+            top: -250px;
+            left: var(--start-left);
             opacity: 0;
           }
           5% {
-            opacity: 0.85;
+            opacity: 0.9;
           }
           95% {
-            opacity: 0.85;
+            opacity: 0.9;
           }
           100% {
-            top: calc(100vh + 30px);
+            top: calc(100vh + 250px);
+            /* Move right by tan(20°) * height ≈ 0.364 * viewport height */
+            left: calc(var(--start-left) + 36.4vh);
             opacity: 0;
           }
         }
