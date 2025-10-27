@@ -168,7 +168,7 @@ const PunchButton: React.FC = () => {
       theme === 'dark'
         ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
         : theme === 'zen'
-        ? 'bg-[#E6DDD4]/90 backdrop-blur-md border-[#D2C0A7] shadow-[0_8px_30px_rgba(210,192,167,0.15),0_2px_8px_rgba(210,192,167,0.08)]'
+        ? 'bg-[#564635]/40 backdrop-blur-md border-[#889D35]/30 shadow-[0_8px_30px_rgba(86,70,53,0.3),0_2px_8px_rgba(86,70,53,0.2)]'
         : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
     }`}>
       {/* Audio elements - invisible mais prêts à jouer */}
@@ -199,7 +199,7 @@ const PunchButton: React.FC = () => {
             theme === 'dark'
               ? 'text-platinum-400'
               : theme === 'zen'
-              ? 'text-[#564635]/70'
+              ? 'text-[#D2C0A7]'
               : 'text-gray-600'
           }`}>
             Time Elapsed
@@ -215,7 +215,7 @@ const PunchButton: React.FC = () => {
               theme === 'dark'
                 ? 'text-platinum-300'
                 : theme === 'zen'
-                ? 'text-[#564635]'
+                ? 'text-[#E6DDD4]'
                 : 'text-gray-700'
             }`}>
               Description
@@ -229,7 +229,7 @@ const PunchButton: React.FC = () => {
                 theme === 'dark'
                   ? 'bg-slate-900 border-slate-700 text-platinum-100 placeholder-platinum-600 focus:ring-gold-500/50 focus:border-gold-500'
                   : theme === 'zen'
-                  ? 'bg-white/80 border-[#D2C0A7] text-[#564635] placeholder-[#564635]/50 focus:ring-[#889D35]/40 focus:border-[#889D35] shadow-[0_2px_8px_rgba(136,157,53,0.08)]'
+                  ? 'bg-[#564635]/60 border-[#889D35]/40 text-[#E6DDD4] placeholder-[#D2C0A7]/60 focus:ring-[#889D35]/60 focus:border-[#889D35] shadow-[0_2px_8px_rgba(136,157,53,0.15)]'
                   : 'bg-white border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/50 focus:border-blue-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
               }`}
               autoFocus
@@ -241,7 +241,7 @@ const PunchButton: React.FC = () => {
               theme === 'dark'
                 ? 'text-platinum-300'
                 : theme === 'zen'
-                ? 'text-[#564635]'
+                ? 'text-[#E6DDD4]'
                 : 'text-gray-700'
             }`}>
               Tag
@@ -261,7 +261,7 @@ const PunchButton: React.FC = () => {
                 theme === 'dark'
                   ? 'text-platinum-300'
                   : theme === 'zen'
-                  ? 'text-[#564635]'
+                  ? 'text-[#E6DDD4]'
                   : 'text-gray-700'
               }`}>
                 <span className="text-base">📝</span>
@@ -270,7 +270,7 @@ const PunchButton: React.FC = () => {
                   theme === 'dark'
                     ? 'text-platinum-500'
                     : theme === 'zen'
-                    ? 'text-[#564635]/60'
+                    ? 'text-[#D2C0A7]/80'
                     : 'text-gray-500'
                 }`}>Optional</span>
               </label>
@@ -284,7 +284,7 @@ const PunchButton: React.FC = () => {
                     theme === 'dark'
                       ? 'bg-slate-900/50 border-slate-700/50 text-platinum-100 placeholder-platinum-600/50 focus:ring-gold-500/30 focus:border-gold-500/30'
                       : theme === 'zen'
-                      ? 'bg-white/70 border-[#D2C0A7] text-[#564635] placeholder-[#564635]/40 focus:ring-[#889D35]/30 focus:border-[#889D35] shadow-[0_2px_8px_rgba(136,157,53,0.08)]'
+                      ? 'bg-[#564635]/50 border-[#889D35]/40 text-[#E6DDD4] placeholder-[#D2C0A7]/50 focus:ring-[#889D35]/50 focus:border-[#889D35] shadow-[0_2px_8px_rgba(136,157,53,0.15)]'
                       : 'bg-white border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/30 focus:border-blue-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
                   }`}
                   style={{
@@ -296,7 +296,7 @@ const PunchButton: React.FC = () => {
                   theme === 'dark'
                     ? 'text-platinum-600'
                     : theme === 'zen'
-                    ? 'text-[#564635]/50'
+                    ? 'text-[#D2C0A7]/70'
                     : 'text-gray-500'
                 }`}>
                   {notes.length} chars
@@ -330,14 +330,14 @@ const PunchButton: React.FC = () => {
               active:shadow-[0_2px_0_0_rgba(0,0,0,0.3),0_3px_8px_rgba(0,0,0,0.2)]
             ` : theme === 'zen' ? `
               ${activePunch
-                ? 'bg-[#564635]/80 hover:bg-[#564635]/90 text-white border-[#564635]'
+                ? 'bg-[#564635]/90 hover:bg-[#564635] text-[#E6DDD4] border-[#564635]'
                 : showForm
-                ? 'bg-[#889D35]/80 hover:bg-[#889D35]/90 text-white border-[#889D35]'
-                : 'bg-[#889D35]/70 hover:bg-[#889D35]/80 text-white border-[#889D35]'
+                ? 'bg-[#889D35]/90 hover:bg-[#889D35] text-[#E6DDD4] border-[#889D35]'
+                : 'bg-[#889D35]/80 hover:bg-[#889D35]/90 text-[#E6DDD4] border-[#889D35]'
               }
-              shadow-[0_6px_0_0_rgba(136,157,53,0.25),0_8px_20px_rgba(136,157,53,0.2)]
-              hover:shadow-[0_6px_0_0_rgba(136,157,53,0.25),0_10px_25px_rgba(136,157,53,0.25)]
-              active:shadow-[0_2px_0_0_rgba(136,157,53,0.25),0_3px_8px_rgba(136,157,53,0.2)]
+              shadow-[0_6px_0_0_rgba(136,157,53,0.4),0_8px_20px_rgba(136,157,53,0.3)]
+              hover:shadow-[0_6px_0_0_rgba(136,157,53,0.4),0_10px_25px_rgba(136,157,53,0.35)]
+              active:shadow-[0_2px_0_0_rgba(136,157,53,0.4),0_3px_8px_rgba(136,157,53,0.3)]
             ` : `
               ${activePunch
                 ? 'bg-red-600/60 hover:bg-red-600/70 text-white border-red-500'
@@ -372,10 +372,10 @@ const PunchButton: React.FC = () => {
                 hover:shadow-[0_4px_0_0_rgba(0,0,0,0.2),0_8px_18px_rgba(0,0,0,0.2)]
                 active:shadow-[0_1px_0_0_rgba(0,0,0,0.2),0_2px_5px_rgba(0,0,0,0.15)]
               ` : theme === 'zen' ? `
-                text-[#564635] bg-[#D2C0A7]/50 hover:bg-[#D2C0A7]/70 border-[#D2C0A7]
-                shadow-[0_4px_0_0_rgba(136,157,53,0.2),0_6px_15px_rgba(136,157,53,0.12)]
-                hover:shadow-[0_4px_0_0_rgba(136,157,53,0.2),0_8px_18px_rgba(136,157,53,0.18)]
-                active:shadow-[0_1px_0_0_rgba(136,157,53,0.2),0_2px_5px_rgba(136,157,53,0.12)]
+                text-[#E6DDD4] bg-[#564635]/70 hover:bg-[#564635]/90 border-[#889D35]/40
+                shadow-[0_4px_0_0_rgba(136,157,53,0.3),0_6px_15px_rgba(136,157,53,0.2)]
+                hover:shadow-[0_4px_0_0_rgba(136,157,53,0.3),0_8px_18px_rgba(136,157,53,0.25)]
+                active:shadow-[0_1px_0_0_rgba(136,157,53,0.3),0_2px_5px_rgba(136,157,53,0.2)]
               ` : `
                 text-gray-700 bg-gray-200/60 hover:bg-gray-300/60 border-gray-400
                 shadow-[0_4px_0_0_rgba(0,0,0,0.1),0_6px_15px_rgba(0,0,0,0.08)]
@@ -414,7 +414,7 @@ const PunchButton: React.FC = () => {
           theme === 'dark'
             ? 'text-platinum-500'
             : theme === 'zen'
-            ? 'text-[#564635]/70'
+            ? 'text-[#D2C0A7]'
             : 'text-gray-600'
         }`}>
           {activePunch ? 'Active' : 'Idle'}

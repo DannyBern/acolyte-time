@@ -64,7 +64,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : theme === 'zen'
-          ? 'bg-[#E6DDD4]/90 backdrop-blur-md border-[#D2C0A7] shadow-[0_8px_30px_rgba(210,192,167,0.15),0_2px_8px_rgba(210,192,167,0.08)]'
+          ? 'bg-[#564635]/40 backdrop-blur-md border-[#889D35]/30 shadow-[0_8px_30px_rgba(86,70,53,0.3),0_2px_8px_rgba(86,70,53,0.2)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <button
@@ -73,7 +73,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
             theme === 'dark'
               ? 'text-platinum-100 hover:text-gold-400 hover:bg-slate-700/50'
               : theme === 'zen'
-              ? 'text-[#564635] hover:text-[#889D35] hover:bg-[#D2C0A7]/40'
+              ? 'text-[#E6DDD4] hover:text-[#889D35] hover:bg-[#889D35]/20'
               : 'text-gray-900 hover:text-amber-600 hover:bg-gray-50'
           }`}
         >
@@ -96,7 +96,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                   theme === 'dark'
                     ? 'bg-slate-900 border-slate-700/50 hover:border-slate-600 shadow-[0_4px_12px_rgba(0,0,0,0.1)]'
                     : theme === 'zen'
-                    ? 'bg-white/70 backdrop-blur-sm border-[#D2C0A7]/60 hover:border-[#D2C0A7] shadow-[0_4px_12px_rgba(136,157,53,0.08),0_1px_4px_rgba(136,157,53,0.04)] hover:shadow-[0_6px_16px_rgba(136,157,53,0.12)]'
+                    ? 'bg-[#564635]/60 backdrop-blur-sm border-[#889D35]/40 hover:border-[#889D35]/60 shadow-[0_4px_12px_rgba(136,157,53,0.2),0_1px_4px_rgba(136,157,53,0.1)] hover:shadow-[0_6px_16px_rgba(136,157,53,0.25)]'
                     : 'bg-white backdrop-blur-sm border-slate-200 hover:border-slate-300 shadow-[0_4px_12px_rgba(0,0,0,0.05),0_1px_4px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.08)]'
                 }`}
               >
@@ -108,7 +108,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                         theme === 'dark'
                           ? 'text-platinum-400'
                           : theme === 'zen'
-                          ? 'text-[#564635]'
+                          ? 'text-[#E6DDD4]'
                           : 'text-gray-700'
                       }`}>
                         {formatDate(startDate)}
@@ -117,7 +117,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                         theme === 'dark'
                           ? 'text-platinum-500'
                           : theme === 'zen'
-                          ? 'text-[#564635]/70'
+                          ? 'text-[#D2C0A7]'
                           : 'text-gray-600'
                       }`}>
                         {formatTime(punch.startTime)} -{' '}
@@ -131,7 +131,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                         theme === 'dark'
                           ? 'text-platinum-100'
                           : theme === 'zen'
-                          ? 'text-[#564635]'
+                          ? 'text-[#E6DDD4]'
                           : 'text-gray-900'
                       }`}>
                         {punch.description}
@@ -178,7 +178,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                           theme === 'dark'
                             ? 'text-platinum-400 hover:text-gold-400'
                             : theme === 'zen'
-                            ? 'text-[#564635]/70 hover:text-[#889D35]'
+                            ? 'text-[#D2C0A7] hover:text-[#889D35]'
                             : 'text-gray-600 hover:text-amber-600'
                         }`}
                       >
@@ -193,7 +193,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                         theme === 'dark'
                           ? 'bg-slate-800/50 border-slate-700/50 text-platinum-300'
                           : theme === 'zen'
-                          ? 'bg-[#E6DDD4]/60 border-[#D2C0A7] text-[#564635]'
+                          ? 'bg-[#564635]/70 border-[#889D35]/40 text-[#E6DDD4]'
                           : 'bg-white border-gray-300 text-gray-700'
                       }`}>
                         {punch.notes}
@@ -209,7 +209,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                         theme === 'dark'
                           ? 'text-platinum-400 hover:text-platinum-100 hover:bg-slate-700'
                           : theme === 'zen'
-                          ? 'text-[#564635] hover:text-[#889D35] hover:bg-[#D2C0A7]/40'
+                          ? 'text-[#E6DDD4] hover:text-[#889D35] hover:bg-[#889D35]/20'
                           : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200'
                       }`}
                     >
@@ -221,7 +221,7 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                         theme === 'dark'
                           ? 'text-red-400 hover:text-red-300 hover:bg-red-900/20'
                           : theme === 'zen'
-                          ? 'text-[#564635] hover:text-[#564635] hover:bg-[#D2C0A7]/60'
+                          ? 'text-[#E6DDD4] hover:text-[#E6DDD4] hover:bg-[#564635]/80'
                           : 'text-red-600 hover:text-red-700 hover:bg-red-50'
                       }`}
                     >
