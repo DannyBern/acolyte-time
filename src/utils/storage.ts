@@ -81,26 +81,133 @@ export const exportToJSON = (data: AppData): string => {
 };
 
 export const exportToCSV = (punches: Punch[], tags: Tag[]): string => {
-  const tagMap = new Map(tags.map(t => [t.id, t.name]));
+  const tagMap = new Map(tags.map(t => [t.id, t]));
 
-  const headers = ['Date', 'Start Time', 'End Time', 'Duration (h)', 'Tags', 'Description'];
-  const rows = punches.map(punch => {
+  // Sort punches by date (oldest first) for chronological report
+  const sortedPunches = [...punches].sort((a, b) =>
+    new Date(a.startTime).getTime() - new Date(b.startTime).getTime()
+  );
+
+  // Report header section
+  const reportTitle = 'ACOLYTE TIME - TIME TRACKING REPORT';
+  const generatedDate = `Generated: ${new Date().toLocaleDateString('en-CA')} ${new Date().toLocaleTimeString('en-US', { hour12: false })}`;
+  const totalEntries = `Total Entries: ${punches.length}`;
+
+  // Calculate total hours
+  const totalMinutes = punches.reduce((sum, punch) => sum + calculatePunchDuration(punch), 0);
+  const totalHours = (totalMinutes / 60).toFixed(2);
+  const totalHoursLine = `Total Hours: ${totalHours}`;
+
+  // Empty line for spacing
+  const emptyLine = '';
+
+  // Main data headers - Professional timesheet format
+  const headers = [
+    'Entry ID',
+    'Date',
+    'Day of Week',
+    'Start Time',
+    'End Time',
+    'Duration (Hours)',
+    'Duration (Minutes)',
+    'Project/Tag',
+    'Tag Icon',
+    'Description',
+    'Notes',
+    'Status'
+  ];
+
+  // Data rows
+  const rows = sortedPunches.map((punch, index) => {
     const start = new Date(punch.startTime);
     const end = punch.endTime ? new Date(punch.endTime) : new Date();
-    const duration = calculatePunchDuration(punch) / 60;
+    const durationMinutes = calculatePunchDuration(punch);
+    const durationHours = (durationMinutes / 60).toFixed(2);
 
-    const date = start.toLocaleDateString('en-CA'); // YYYY-MM-DD
-    const startTime = start.toLocaleTimeString('en-US', { hour12: false });
-    const endTime = end.toLocaleTimeString('en-US', { hour12: false });
-    const tagNames = punch.tags.map(tid => tagMap.get(tid) || tid).join('; ');
-    const desc = punch.description.replace(/"/g, '""'); // Escape quotes
+    // Format date and time for Excel/Sheets compatibility
+    const date = start.toLocaleDateString('en-CA'); // YYYY-MM-DD (ISO format)
+    const dayOfWeek = start.toLocaleDateString('en-US', { weekday: 'long' });
+    const startTime = start.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+    const endTime = end.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
-    return [date, startTime, endTime, duration.toFixed(2), tagNames, `"${desc}"`];
+    // Get tag information
+    const tagInfo = punch.tags.map(tid => {
+      const tag = tagMap.get(tid);
+      return tag ? tag.name : 'Untagged';
+    }).join(' + ') || 'Untagged';
+
+    const tagIcons = punch.tags.map(tid => {
+      const tag = tagMap.get(tid);
+      return tag?.icon || '';
+    }).join(' ');
+
+    // Escape and format text fields for CSV
+    const escapeCSV = (text: string) => {
+      if (!text) return '';
+      // Replace quotes with double quotes and wrap in quotes if contains comma/newline
+      const escaped = text.replace(/"/g, '""');
+      return text.includes(',') || text.includes('\n') || text.includes('"')
+        ? `"${escaped}"`
+        : escaped;
+    };
+
+    const description = escapeCSV(punch.description || 'No description');
+    const notes = escapeCSV(punch.notes || '');
+    const status = punch.endTime ? 'Completed' : 'In Progress';
+    const entryId = `E${String(index + 1).padStart(4, '0')}`; // E0001, E0002, etc.
+
+    return [
+      entryId,
+      date,
+      dayOfWeek,
+      startTime,
+      endTime,
+      durationHours,
+      durationMinutes,
+      escapeCSV(tagInfo),
+      tagIcons,
+      description,
+      notes,
+      status
+    ];
   });
 
+  // Calculate summary by tag
+  const tagSummary: { [key: string]: number } = {};
+  sortedPunches.forEach(punch => {
+    punch.tags.forEach(tid => {
+      const tag = tagMap.get(tid);
+      const tagName = tag ? tag.name : 'Untagged';
+      tagSummary[tagName] = (tagSummary[tagName] || 0) + calculatePunchDuration(punch);
+    });
+  });
+
+  // Summary section
+  const summaryTitle = 'SUMMARY BY PROJECT/TAG';
+  const summaryHeaders = ['Project/Tag', 'Total Hours', 'Total Minutes', 'Percentage'];
+  const summaryRows = Object.entries(tagSummary)
+    .sort(([, a], [, b]) => b - a) // Sort by duration descending
+    .map(([tagName, minutes]) => {
+      const hours = (minutes / 60).toFixed(2);
+      const percentage = ((minutes / totalMinutes) * 100).toFixed(1);
+      return [tagName, hours, minutes, `${percentage}%`];
+    });
+
+  // Build CSV content with proper formatting
   const csvContent = [
+    reportTitle,
+    generatedDate,
+    totalEntries,
+    totalHoursLine,
+    emptyLine,
+    emptyLine,
     headers.join(','),
     ...rows.map(row => row.join(',')),
+    emptyLine,
+    emptyLine,
+    summaryTitle,
+    summaryHeaders.join(','),
+    ...summaryRows.map(row => row.join(',')),
   ].join('\n');
 
   return csvContent;
