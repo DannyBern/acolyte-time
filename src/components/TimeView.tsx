@@ -47,7 +47,7 @@ const TimeView: React.FC = () => {
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : theme === 'zen'
-          ? 'bg-[#564635] backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
+          ? 'bg-[#564635]/60 backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="flex gap-2">
@@ -80,7 +80,7 @@ const TimeView: React.FC = () => {
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : theme === 'zen'
-          ? 'bg-[#564635] backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
+          ? 'bg-[#564635]/60 backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="flex items-center justify-between">
@@ -142,7 +142,7 @@ const TimeView: React.FC = () => {
         theme === 'dark'
           ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
           : theme === 'zen'
-          ? 'bg-[#564635] backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
+          ? 'bg-[#564635]/60 backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
           : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
       }`}>
         <div className="text-center mb-6">
@@ -243,7 +243,7 @@ const TimeView: React.FC = () => {
           theme === 'dark'
             ? 'bg-slate-850 border-slate-700/50 shadow-[0_8px_30px_rgba(0,0,0,0.12)]'
             : theme === 'zen'
-            ? 'bg-[#564635] backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
+            ? 'bg-[#564635]/60 backdrop-blur-md border-[#889D35]/60 shadow-[0_20px_60px_rgba(86,70,53,0.8),0_10px_30px_rgba(86,70,53,0.6),0_5px_15px_rgba(136,157,53,0.4),inset_0_1px_2px_rgba(230,221,212,0.2)]'
             : 'bg-slate-200/95 backdrop-blur-md border-slate-400 shadow-[0_8px_30px_rgba(0,0,0,0.12),0_2px_8px_rgba(0,0,0,0.08)]'
         }`}>
           <button
