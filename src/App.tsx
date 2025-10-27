@@ -7,6 +7,8 @@ import TagManager from './components/TagManager';
 import ExportImport from './components/ExportImport';
 import SplashScreen from './components/SplashScreen';
 import FallingLeaves from './components/FallingLeaves';
+import FallingSnow from './components/FallingSnow';
+import FallingRain from './components/FallingRain';
 
 function AppContent() {
   const { theme, toggleTheme } = useTheme();
@@ -68,8 +70,10 @@ function AppContent() {
           ? 'bg-gradient-to-br from-[#E6DDD4] via-[#D2C0A7] to-[#E6DDD4]'
           : 'bg-gradient-to-br from-gray-50 via-white to-gray-100'
       }`}>
-        {/* Falling leaves animation - Zen theme only */}
+        {/* Weather animations per theme */}
         <FallingLeaves />
+        <FallingSnow />
+        <FallingRain />
 
         {/* Header */}
         <header className={`sticky top-0 z-40 backdrop-blur-md border-b transition-colors duration-300 ${
