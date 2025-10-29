@@ -10,7 +10,7 @@ interface AppContextType {
   deletePunch: (id: string) => void;
   startPunch: (description: string, tags: string[], notes?: string, forceStart?: boolean) => void;
   stopPunch: (description?: string, tags?: string[]) => void;
-  addTag: (tag: Omit<Tag, 'id'>) => void;
+  addTag: (tag: Omit<Tag, 'id'>) => string;
   updateTag: (id: string, updates: Partial<Tag>) => void;
   deleteTag: (id: string) => void;
   importData: (newData: AppData) => void;
@@ -176,7 +176,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setActivePunch(null);
   }, [activePunch]);
 
-  const addTag = useCallback((tag: Omit<Tag, 'id'>) => {
+  const addTag = useCallback((tag: Omit<Tag, 'id'>): string => {
     const newTag: Tag = {
       ...tag,
       id: crypto.randomUUID(),
@@ -186,6 +186,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       ...prev,
       tags: [...prev.tags, newTag],
     }));
+
+    return newTag.id;
   }, []);
 
   const updateTag = useCallback((id: string, updates: Partial<Tag>) => {

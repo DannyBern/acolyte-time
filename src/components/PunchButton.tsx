@@ -5,7 +5,7 @@ import { formatDurationWithSeconds, getSecondsSinceStart } from '../utils/dateUt
 import TagSelector from './TagSelector';
 
 const PunchButton: React.FC = () => {
-  const { activePunch, startPunch, stopPunch, data, updatePunch } = useApp();
+  const { activePunch, startPunch, stopPunch, data, updatePunch, addTag } = useApp();
   const { theme } = useTheme();
   const [description, setDescription] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -163,7 +163,32 @@ const PunchButton: React.FC = () => {
           console.log('Stop audio bloqué:', err);
         });
       }
-      stopPunch(description, selectedTags);
+
+      // Si aucun tag n'est sélectionné et qu'il y a une description, créer un tag automatiquement
+      let tagsToUse = selectedTags;
+      if (selectedTags.length === 0 && description.trim()) {
+        // Vérifier si un tag avec ce nom existe déjà
+        const existingTag = data.tags.find(tag => tag.name.toLowerCase() === description.trim().toLowerCase());
+
+        if (existingTag) {
+          // Utiliser le tag existant
+          tagsToUse = [existingTag.id];
+        } else {
+          // Créer un nouveau tag avec la description comme nom
+          const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+          const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+          // Ajouter le tag et récupérer son ID
+          const newTagId = addTag({
+            name: description.trim(),
+            color: randomColor,
+          });
+
+          tagsToUse = [newTagId];
+        }
+      }
+
+      stopPunch(description, tagsToUse);
       setShowForm(false);
     } else {
       if (!showForm) {
