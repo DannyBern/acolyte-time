@@ -13,6 +13,7 @@ export interface Tag {
   name: string;
   color: string;
   icon?: string;
+  isShortcut?: boolean; // true = apparaît dans les shortcuts, false = tag unique auto-créé
 }
 
 export interface AppData {

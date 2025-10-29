@@ -61,7 +61,8 @@ const TagManager: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
   const handleAddTag = () => {
     if (newTag.name.trim()) {
-      addTag(newTag);
+      // Les tags créés manuellement sont des shortcuts
+      addTag({ ...newTag, isShortcut: true });
       setNewTag({ name: '', color: PRESET_COLORS[0], icon: '' });
       setIsAdding(false);
     }

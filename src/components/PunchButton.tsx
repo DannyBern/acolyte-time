@@ -179,9 +179,11 @@ const PunchButton: React.FC = () => {
           const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
           // Ajouter le tag et récupérer son ID
+          // isShortcut: false pour ne pas l'afficher dans la liste des shortcuts
           const newTagId = addTag({
             name: description.trim(),
             color: randomColor,
+            isShortcut: false,
           });
 
           tagsToUse = [newTagId];
@@ -301,7 +303,7 @@ const PunchButton: React.FC = () => {
               Tag
             </label>
             <TagSelector
-              availableTags={data.tags}
+              availableTags={data.tags.filter(tag => tag.isShortcut !== false)}
               selectedTags={selectedTags}
               onTagsChange={setSelectedTags}
               singleSelect={true}
