@@ -14,6 +14,8 @@ const PunchButton: React.FC = () => {
   const [showForm, setShowForm] = useState(false);
   const notesUpdateTimeoutRef = useRef<number | null>(null);
   const isUpdatingNotesRef = useRef(false);
+  const descriptionUpdateTimeoutRef = useRef<number | null>(null);
+  const isUpdatingDescriptionRef = useRef(false);
   const punchInAudioRef = useRef<HTMLAudioElement | null>(null);
   const stopAudioRef = useRef<HTMLAudioElement | null>(null);
   const previousTagRef = useRef<string>('');
@@ -33,7 +35,10 @@ const PunchButton: React.FC = () => {
 
   useEffect(() => {
     if (activePunch) {
-      setDescription(activePunch.description);
+      // Ne mettre à jour la description que si on ne la modifie pas actuellement
+      if (!isUpdatingDescriptionRef.current) {
+        setDescription(activePunch.description);
+      }
       setSelectedTags(activePunch.tags);
       // Ne mettre à jour les notes que si on ne les modifie pas actuellement
       if (!isUpdatingNotesRef.current) {
@@ -53,12 +58,11 @@ const PunchButton: React.FC = () => {
     }
   }, [activePunch]);
 
-  // Auto-restart punch when TAG changes (but update description in-place)
+  // Auto-restart punch when TAG changes
   useEffect(() => {
     if (activePunch && !isAutoRestartingRef.current) {
       const currentTag = selectedTags[0] || '';
       const hasTagChanged = currentTag !== previousTagRef.current && previousTagRef.current !== '';
-      const hasDescriptionChanged = description !== activePunch.description;
 
       // Clear any pending auto-restart
       if (autoRestartTimeoutRef.current) {
@@ -82,10 +86,6 @@ const PunchButton: React.FC = () => {
           }, 150);
         }, 300); // 300ms debounce
       }
-      // If only description changed, update in-place
-      else if (hasDescriptionChanged && !hasTagChanged) {
-        updatePunch(activePunch.id, { description });
-      }
     }
 
     return () => {
@@ -93,7 +93,36 @@ const PunchButton: React.FC = () => {
         clearTimeout(autoRestartTimeoutRef.current);
       }
     };
-  }, [selectedTags, description, activePunch]);
+  }, [selectedTags, activePunch]);
+
+  // Mettre à jour la description avec debounce pour éviter le flickering
+  useEffect(() => {
+    if (activePunch) {
+      isUpdatingDescriptionRef.current = true;
+
+      // Annuler le timeout précédent
+      if (descriptionUpdateTimeoutRef.current) {
+        clearTimeout(descriptionUpdateTimeoutRef.current);
+      }
+
+      // Sauvegarder après 500ms d'inactivité
+      descriptionUpdateTimeoutRef.current = setTimeout(() => {
+        if (description !== activePunch.description) {
+          updatePunch(activePunch.id, { description });
+        }
+        // Réinitialiser le flag après la mise à jour
+        setTimeout(() => {
+          isUpdatingDescriptionRef.current = false;
+        }, 100);
+      }, 500);
+    }
+
+    return () => {
+      if (descriptionUpdateTimeoutRef.current) {
+        clearTimeout(descriptionUpdateTimeoutRef.current);
+      }
+    };
+  }, [description]);
 
   // Mettre à jour les notes avec debounce pour éviter le flickering
   useEffect(() => {
