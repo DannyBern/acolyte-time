@@ -188,21 +188,6 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                       </button>
                     )}
 
-                    {/* Expanded Notes - Task Checklist */}
-                    {expandedNotes.has(punch.id) && punch.notes && (
-                      <div className={`mt-3 p-3 border rounded-lg transition-colors ${
-                        theme === 'dark'
-                          ? 'bg-slate-800/50 border-slate-700/50'
-                          : theme === 'zen'
-                          ? 'bg-[#564635] border-[#889D35]/40'
-                          : 'bg-white border-gray-300'
-                      }`}>
-                        <TaskNotes
-                          value={punch.notes}
-                          onChange={(newNotes) => updatePunch(punch.id, { notes: newNotes })}
-                        />
-                      </div>
-                    )}
                   </div>
 
                   {/* Actions */}
@@ -233,6 +218,22 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                     </button>
                   </div>
                 </div>
+
+                {/* Expanded Notes - Task Checklist (full card width) */}
+                {expandedNotes.has(punch.id) && punch.notes && (
+                  <div className={`mt-3 pt-3 border-t ${
+                    theme === 'dark'
+                      ? 'border-slate-700/50'
+                      : theme === 'zen'
+                      ? 'border-[#889D35]/30'
+                      : 'border-gray-200'
+                  }`}>
+                    <TaskNotes
+                      value={punch.notes}
+                      onChange={(newNotes) => updatePunch(punch.id, { notes: newNotes })}
+                    />
+                  </div>
+                )}
               </div>
             );
           })}
