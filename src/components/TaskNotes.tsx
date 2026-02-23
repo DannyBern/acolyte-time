@@ -45,6 +45,11 @@ const TaskNotes: React.FC<TaskNotesProps> = ({ value, onChange }) => {
     onChange(serializeTaskLines(updated));
   };
 
+  const deleteTask = (index: number) => {
+    const updated = tasks.filter((_, i) => i !== index);
+    onChange(updated.length > 0 ? serializeTaskLines(updated) : '');
+  };
+
   const addTask = () => {
     const text = newTask.trim();
     if (!text) return;
@@ -64,9 +69,9 @@ const TaskNotes: React.FC<TaskNotesProps> = ({ value, onChange }) => {
     <div className="space-y-1">
       {/* Task list */}
       {tasks.map((task, i) => (
-        <label
+        <div
           key={i}
-          className={`flex items-start gap-3 py-1.5 px-2 rounded-lg cursor-pointer transition-colors ${
+          className={`flex items-start gap-3 py-1.5 px-2 rounded-lg group transition-colors ${
             theme === 'dark'
               ? 'hover:bg-slate-800/50'
               : theme === 'zen'
@@ -87,7 +92,8 @@ const TaskNotes: React.FC<TaskNotesProps> = ({ value, onChange }) => {
             }`}
           />
           <span
-            className={`text-sm leading-relaxed transition-all ${
+            onClick={() => toggleTask(i)}
+            className={`flex-1 text-sm leading-relaxed transition-all cursor-pointer ${
               task.completed
                 ? theme === 'dark'
                   ? 'line-through text-platinum-600 opacity-50'
@@ -103,7 +109,20 @@ const TaskNotes: React.FC<TaskNotesProps> = ({ value, onChange }) => {
           >
             {task.text}
           </span>
-        </label>
+          <button
+            onClick={() => deleteTask(i)}
+            className={`flex-shrink-0 w-5 h-5 flex items-center justify-center rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity ${
+              theme === 'dark'
+                ? 'text-platinum-500 hover:text-red-400 hover:bg-red-900/30'
+                : theme === 'zen'
+                ? 'text-[#D2C0A7]/60 hover:text-red-300 hover:bg-red-900/20'
+                : 'text-gray-400 hover:text-red-500 hover:bg-red-50'
+            }`}
+            aria-label="Delete task"
+          >
+            ×
+          </button>
+        </div>
       ))}
 
       {/* Add task input */}
