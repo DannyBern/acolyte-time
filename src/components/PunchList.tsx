@@ -5,6 +5,7 @@ import { calculatePunchDuration } from '../utils/storage';
 import { useApp } from '../context/AppContext';
 import { useTheme } from '../context/ThemeContext';
 import PunchEditor from './PunchEditor';
+import TaskNotes from './TaskNotes';
 
 interface PunchListProps {
   punches: Punch[];
@@ -12,7 +13,7 @@ interface PunchListProps {
 }
 
 const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
-  const { deletePunch } = useApp();
+  const { deletePunch, updatePunch } = useApp();
   const { theme } = useTheme();
   const [editingPunch, setEditingPunch] = useState<Punch | null>(null);
   const [expandedNotes, setExpandedNotes] = useState<Set<string>>(new Set());
@@ -187,16 +188,19 @@ const PunchList: React.FC<PunchListProps> = ({ punches, tags }) => {
                       </button>
                     )}
 
-                    {/* Expanded Notes */}
+                    {/* Expanded Notes - Task Checklist */}
                     {expandedNotes.has(punch.id) && punch.notes && (
-                      <div className={`mt-3 p-3 border rounded-lg text-sm leading-relaxed whitespace-pre-wrap transition-colors ${
+                      <div className={`mt-3 p-3 border rounded-lg transition-colors ${
                         theme === 'dark'
-                          ? 'bg-slate-800/50 border-slate-700/50 text-platinum-300'
+                          ? 'bg-slate-800/50 border-slate-700/50'
                           : theme === 'zen'
-                          ? 'bg-[#564635] border-[#889D35]/40 text-[#E6DDD4]'
-                          : 'bg-white border-gray-300 text-gray-700'
+                          ? 'bg-[#564635] border-[#889D35]/40'
+                          : 'bg-white border-gray-300'
                       }`}>
-                        {punch.notes}
+                        <TaskNotes
+                          value={punch.notes}
+                          onChange={(newNotes) => updatePunch(punch.id, { notes: newNotes })}
+                        />
                       </div>
                     )}
                   </div>

@@ -3,6 +3,7 @@ import { useApp } from '../context/AppContext';
 import { useTheme } from '../context/ThemeContext';
 import { formatDurationWithSeconds, getSecondsSinceStart } from '../utils/dateUtils';
 import TagSelector from './TagSelector';
+import TaskNotes from './TaskNotes';
 
 const PunchButton: React.FC = () => {
   const { activePunch, startPunch, stopPunch, data, updatePunch, addTag } = useApp();
@@ -310,7 +311,7 @@ const PunchButton: React.FC = () => {
             />
           </div>
 
-          {/* Notes Section - Zen Contemporary Design */}
+          {/* Notes Section - Task Checklist */}
           {activePunch && (
             <div className="pt-2">
               <label className={`block text-sm font-medium mb-3 flex items-center gap-2 transition-colors ${
@@ -330,34 +331,7 @@ const PunchButton: React.FC = () => {
                     : 'text-gray-500'
                 }`}>Optional</span>
               </label>
-              <div className="relative">
-                <textarea
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Add your thoughts, context, or reflections..."
-                  rows={3}
-                  className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-1 transition-all resize-none text-sm leading-relaxed backdrop-blur-sm shadow-sm ${
-                    theme === 'dark'
-                      ? 'bg-slate-900/50 border-slate-700/50 text-platinum-100 placeholder-platinum-600/50 focus:ring-gold-500/30 focus:border-gold-500/30'
-                      : theme === 'zen'
-                      ? 'bg-[#6b5545] border-[#889D35]/40 text-[#E6DDD4] placeholder-[#D2C0A7]/50 focus:ring-[#889D35]/50 focus:border-[#889D35] shadow-[inset_0_4px_8px_rgba(0,0,0,0.4),inset_0_2px_4px_rgba(0,0,0,0.3),0_1px_2px_rgba(136,157,53,0.2)]'
-                      : 'bg-white border-slate-300 text-gray-900 placeholder-gray-500 focus:ring-blue-400/30 focus:border-blue-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
-                  }`}
-                  style={{
-                    fontFamily: 'system-ui, -apple-system, sans-serif',
-                    lineHeight: '1.6',
-                  }}
-                />
-                <div className={`absolute bottom-3 right-3 text-xs pointer-events-none transition-colors ${
-                  theme === 'dark'
-                    ? 'text-platinum-600'
-                    : theme === 'zen'
-                    ? 'text-[#D2C0A7]/70'
-                    : 'text-gray-500'
-                }`}>
-                  {notes.length} chars
-                </div>
-              </div>
+              <TaskNotes value={notes} onChange={setNotes} />
             </div>
           )}
         </div>
